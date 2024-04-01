@@ -1,0 +1,509 @@
+# Variables
+name: &name Deploy Release (from master) or Snapshot (from develop) to Artifactory
+
+# Basic build options
+x-step: &default_build_option
+  image: phoenix.ipv64.de/kirbylink/maven:3-jdk-11
+  volumes:
+  - name: m2
+    path: /root/.m2
+
+kind: pipeline
+type: docker
+platform:
+  os: linux
+  arch: arm64
+name: *name
+
+steps:
+
+- name: Maven build
+  <<: *default_build_option
+  commands:
+  - mvn compile -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Maven Unit Test
+  <<: *default_build_option
+  commands:
+  - mvn test jacoco:report -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Maven Integration Test
+  <<: *default_build_option
+  commands:
+  - mvn verify -B -V -s /usr/share/maven/ref/settings-docker.xml -Dskip.surefire.tests jacoco:report-integration
+
+- name: Maven Install
+  <<: *default_build_option
+  commands:
+  - mvn install -DskipTests=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: SonarQube Analysis
+  <<: *default_build_option
+  environment:
+    SONAR_HOST:
+      from_secret: sonar_host
+    SONAR_TOKEN:
+      from_secret: sonar_token
+  commands:
+  - >
+    mvn properties:read-project-properties sonar:sonar
+    -Dsonar.host.url=$SONAR_HOST
+    -Dsonar.login=$SONAR_TOKEN
+    -Dsonar.branch.name=${DRONE_COMMIT_BRANCH}
+    -Dsonar.qualitygate.wait=true
+  
+- name: Maven Deploy
+  <<: *default_build_option
+  commands:
+  - mvn deploy -Dmaven.test.skip=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -Dskip.surefire.tests -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Send Notification
+  image: phoenix.ipv64.de/kirbylink/drone-gotify:latest
+  settings:
+    gotifytoken:
+      from_secret: plugin_gotifytoken
+    gotifyendpoint:
+      from_secret: plugin_gotifyendpoint
+    gotifytitle: *name
+    gotifypriority: 5
+    message: >
+      {{#success build.status}}
+        {{#master commit.branch}}
+          Release deployment to Artifactory of build {{build.number}} succeeded on {{repo.name}}. Build link: {{build.link}}
+        {{else}}
+          Snapshot deployment to Artifactory of build {{build.number}} succeeded on {{repo.name}}. Build link: {{build.link}}
+        {{/master}}
+      {{else}}
+        {{#master commit.branch}}
+          WARNING. Release deployment to Artifactory of build {{build.number}} failed on {{repo.name}}. Build link: {{build.link}}
+        {{else}}
+          WARNING. Snapshot deployment to Artifactory of build {{build.number}} failed on {{repo.name}}. Build link: {{build.link}}
+        {{/master}}
+      {{/success}}
+  when:
+    status: [ success, failure ]
+
+volumes:
+- name: m2
+  temp: {}
+
+trigger:
+  branch:
+  - master
+  - develop
+  event:
+  - custom
+  - push
+  
+---
+# Variables
+name: &name Publish artifacts to Gitea Release
+
+# Basic build options
+x-step: &default_build_option
+  image: phoenix.ipv64.de/kirbylink/maven:3-jdk-11
+  volumes:
+  - name: m2
+    path: /root/.m2
+
+kind: pipeline
+type: docker
+platform:
+  os: linux
+  arch: arm64
+name: *name
+
+steps:
+
+- name: Maven Install
+  <<: *default_build_option
+  commands:
+  - mvn install -DskipTests=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Release to Gitea
+  image: plugins/gitea-release
+  settings:
+    api_key:
+      from_secret: gitea_token
+    base_url: https://git.phoenix.ipv64.de
+    prerelease: false
+    files:
+      - target/*.jar
+    note: CHANGELOG.md
+    checksum:
+      - md5
+      - sha1
+      - sha256
+      - sha512
+      - adler32
+      - crc32
+
+- name: Send Notification
+  image: phoenix.ipv64.de/kirbylink/drone-gotify:latest
+  settings:
+    gotifytoken:
+      from_secret: plugin_gotifytoken
+    gotifyendpoint:
+      from_secret: plugin_gotifyendpoint
+    gotifytitle: *name
+    gotifypriority: 5
+    message: >
+      {{#success build.status}}
+        Releasing version {{tag}} to Gitea succeeded on {{repo.name}}. Release link: {{build.repoLink}}/releases/latest
+      {{else}}
+        WARNING. Releasing version {{tag}} to Gitea failed on {{repo.name}}. Build link: {{build.link}}
+      {{/success}}
+  when:
+    status: [ success, failure ]
+
+volumes:
+- name: m2
+  temp: {}
+
+trigger:
+  ref:
+    include:
+    - refs/tags/*
+    exclude:
+    - refs/tags/release*
+    - refs/tags/hotfix*
+
+---
+# Variables
+name: &name Pull Request Analysis
+
+# Basic build options
+x-step: &default_build_option
+  image: phoenix.ipv64.de/kirbylink/maven:3-jdk-11
+  volumes:
+  - name: m2
+    path: /root/.m2
+
+kind: pipeline
+type: docker
+platform:
+  os: linux
+  arch: arm64
+name: *name
+
+clone:
+  disable: true
+
+steps:
+
+- name: clone
+  image: drone/git
+  commands:
+  - git init
+  - git remote add origin ${DRONE_REMOTE_URL}
+  - git fetch ${FLAGS} origin +refs/heads/${DRONE_COMMIT_BRANCH}
+  - git checkout -b pr/${DRONE_COMMIT_BRANCH}
+  - git fetch origin ${DRONE_COMMIT_REF}
+  - git merge ${DRONE_COMMIT_SHA}
+
+- name: Maven build
+  <<: *default_build_option
+  commands:
+  - mvn compile -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Maven Unit Test
+  <<: *default_build_option
+  commands:
+  - mvn test jacoco:report -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: Maven Integration Test
+  <<: *default_build_option
+  commands:
+  - mvn verify -B -V -s /usr/share/maven/ref/settings-docker.xml -Dskip.surefire.tests jacoco:report-integration
+
+- name: Maven Install
+  <<: *default_build_option
+  commands:
+  - mvn install -DskipTests=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -B -V -s /usr/share/maven/ref/settings-docker.xml
+
+- name: SonarQube Analysis
+  <<: *default_build_option
+  environment:
+    SONAR_HOST:
+      from_secret: sonar_host
+    SONAR_TOKEN:
+      from_secret: sonar_token
+  commands:
+  - >
+    mvn properties:read-project-properties sonar:sonar
+    -Dsonar.host.url=$SONAR_HOST
+    -Dsonar.login=$SONAR_TOKEN
+    -Dsonar.pullrequest.key=$DRONE_PULL_REQUEST
+    -Dsonar.pullrequest.base=$DRONE_TARGET_BRANCH
+    -Dsonar.pullrequest.branch=$DRONE_SOURCE_BRANCH
+    -Dsonar.qualitygate.wait=true
+
+- name: Send Notification
+  image: phoenix.ipv64.de/kirbylink/drone-gotify:latest
+  settings:
+    gotifytoken:
+      from_secret: plugin_gotifytoken
+    gotifyendpoint:
+      from_secret: plugin_gotifyendpoint
+    gotifytitle: *name
+    gotifypriority: 5
+    message: >
+      {{#success build.status}}
+        Pull request analysis {{build.pullRequest}} succeeded on {{repo.name}}. Pull request link: {{build.commitLink}}
+      {{else}}
+        WARNING. Pull request analysis {{build.pullRequest}} failed on {{repo.name}}. Build link: {{build.link}}
+      {{/success}}
+  when:
+    status: [ success, failure ]
+
+volumes:
+- name: m2
+  temp: {}
+
+trigger:
+  branch:
+  - master
+  - develop
+  event:
+  - custom
+  - pull_request
+  
+---
+# Variables
+name: &name Release new version
+
+# Basic build options
+x-step: &default_build_option
+  image: phoenix.ipv64.de/kirbylink/maven:3-jdk-11
+  volumes:
+  - name: m2
+    path: /root/.m2
+
+kind: pipeline
+type: docker
+platform:
+  os: linux
+  arch: arm64
+name: *name
+
+steps:
+
+- name: Maven build
+  <<: *default_build_option
+  commands:
+  - mvn compile -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+      - refs/tags/release-finish
+
+- name: Maven Unit Test
+  <<: *default_build_option
+  commands:
+  - mvn test jacoco:report -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+      - refs/tags/release-finish
+
+- name: Maven Integration Test
+  <<: *default_build_option
+  commands:
+  - mvn verify -B -V -s /usr/share/maven/ref/settings-docker.xml -Dskip.surefire.tests jacoco:report-integration
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+      - refs/tags/release-finish
+
+- name: Maven Install
+  <<: *default_build_option
+  commands:
+  - mvn install -DskipTests=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+      - refs/tags/release-finish
+
+- name: Maven gitflow:release-start (release-complete tag)
+  <<: *default_build_option
+  commands:
+  - mvn gitflow:release-start -B -DskipTestProject=true -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+
+- name: Maven gitflow:release-start (release-start tag)
+  <<: *default_build_option
+  commands:
+  - mvn gitflow:release-start -B -DskipTestProject=true -DallowSnapshots=true -DpushRemote=true -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-start
+
+- name: Maven gitflow:release-finish (release-complete tag)
+  <<: *default_build_option
+  commands:
+  - git remote set-url origin <SSH_GITEA_URL>
+  - mvn gitflow:release-finish -B -DskipTestProject=true -DversionDigitToIncrement=1 -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-complete
+
+- name: Maven gitflow:release-finish (release-finish tag)
+  <<: *default_build_option
+  commands:
+  - /bin/bash .drone-script-release-finish.sh
+  - git remote set-url origin <SSH_GITEA_URL>
+  - mvn gitflow:release-finish -B -DskipTestProject=true -DversionDigitToIncrement=1 -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/release-finish
+
+- name: Send Notification
+  image: phoenix.ipv64.de/kirbylink/drone-gotify:latest
+  settings:
+    gotifytoken:
+      from_secret: plugin_gotifytoken
+    gotifyendpoint:
+      from_secret: plugin_gotifyendpoint
+    gotifytitle: *name
+    gotifypriority: 5
+    message: >
+      {{#success build.status}}
+        {{commit.ref}} on build {{build.number}} succeeded on {{repo.name}}. Build link: {{build.link}}
+      {{else}}
+        WARNING. {{commit.ref}} on build {{build.number}} failed on {{repo.name}}. Build link: {{build.link}}
+      {{/success}}
+  when:
+    status: [ success, failure ]
+
+volumes:
+- name: m2
+  temp: {}
+
+trigger:
+  ref:
+  - refs/tags/release*  
+
+---
+# Variables
+name: &name Create Hotfix
+
+# Basic build options
+x-step: &default_build_option
+  image: phoenix.ipv64.de/kirbylink/maven:3-jdk-11
+  volumes:
+  - name: m2
+    path: /root/.m2
+
+kind: pipeline
+type: docker
+platform:
+  os: linux
+  arch: arm64
+name: *name
+
+steps:
+
+- name: Maven build
+  <<: *default_build_option
+  commands:
+  - mvn compile -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+
+- name: Maven Unit Test
+  <<: *default_build_option
+  commands:
+  - mvn test jacoco:report -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+
+- name: Maven Integration Test
+  <<: *default_build_option
+  commands:
+  - mvn verify -B -V -s /usr/share/maven/ref/settings-docker.xml -Dskip.surefire.tests jacoco:report-integration
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+
+- name: Maven Install
+  <<: *default_build_option
+  commands:
+  - mvn install -DskipTests=true -Dskip.surefire.tests=true -Dmaven.javadoc.skip=true -B -V -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+
+- name: Maven gitflow:hotfix-start
+  <<: *default_build_option
+  commands:
+  - git fetch
+  - mvn gitflow:hotfix-start -B -DskipTestProject=true -DpushRemote=true -s /usr/share/maven/ref/settings-docker.xml
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-start
+
+- name: SonarQube Analysis
+  <<: *default_build_option
+  environment:
+    SONAR_HOST:
+      from_secret: sonar_host
+    SONAR_TOKEN:
+      from_secret: sonar_token
+  commands:
+  - /bin/bash .drone-script-hotfix-finish-sonarqube.sh
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+  
+- name: Maven gitflow:hotfix-finish
+  <<: *default_build_option
+  commands:
+  - /bin/bash .drone-script-hotfix-finish.sh
+  when:
+    ref:
+      include:
+      - refs/tags/hotfix-finish
+
+- name: Send Notification
+  image: phoenix.ipv64.de/kirbylink/drone-gotify:latest
+  settings:
+    gotifytoken:
+      from_secret: plugin_gotifytoken
+    gotifyendpoint:
+      from_secret: plugin_gotifyendpoint
+    gotifytitle: *name
+    gotifypriority: 5
+    message: >
+      {{#success build.status}}
+        {{commit.ref}} on build {{build.number}} succeeded on {{repo.name}}. Build link: {{build.link}}
+      {{else}}
+        WARNING. {{commit.ref}} on build {{build.number}} failed on {{repo.name}}. Build link: {{build.link}}
+      {{/success}}
+  when:
+    status: [ success, failure ]
+
+volumes:
+- name: m2
+  temp: {}
+
+trigger:
+  ref:
+  - refs/tags/hotfix*  
