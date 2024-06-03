@@ -116,14 +116,17 @@ If you have a Java Runtime Environment (JRE) installed, you can use the compiled
 For a more straightforward experience, you can use the platform-specific executables:
 
 <h5 id="windows-en">Windows</h3>
+<div markdown="1">
 1. Download `e-liquid-calculator-1.0.0-jar-with-dependencies-windows-x64.exe` or `e-liquid-calculator-1.0.0-jar-with-dependencies-windows-x64.zip` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
 2. Double-click the executable to run the application.
-
+</div>
 <h5 id="macos-en">macOS</h3>
+<div markdown="1">
 1. Download `e-liquid-calculator-1.0.0-jar-with-dependencies-macos-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
 2. Double-click `e-liquid-calculator-1.0.0-jar-with-dependencies-macos-x64.app`.
-
+</div>
 <h5 id="linux-en">Linux</h3>
+<div markdown="1">
 1. Download `e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64` or `e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
 2. Make the file executable if necessary:
    ```bash
@@ -133,7 +136,7 @@ For a more straightforward experience, you can use the platform-specific executa
    ```bash
    ./e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64
    ```
-
+</div>
 ### Usage
 
 You can start the program with optional parameters. To get all parameters, start the program with `-h` or `--help`:
@@ -154,6 +157,7 @@ usage: java -jar e-liquid-calculator-1.0.0-jar-with-dependencies.jar
 ```
 
 <h4 id="terminal-en">Terminal</h3>
+<div markdown="1">
 To run the application in the terminal, you need at least the parameters `-a,--amount <arg>` and `-p,--pg <arg>` (0 <= arg <= 1). If `-p` is less than 1, you must also provide `-v,--vg <arg>` and/or `-w,--water <arg>` so that the sum of PG, VG, and water equals 1.
 
 Example Input:
@@ -189,8 +193,9 @@ Water:          000.00 ml       000.00 g        00.00%
 ```
 
 Note: Currently, the terminal is not working for the executable file for Windows. To provide a well-known user experience on Windows, the terminal is by default disabled (silent). For more information about the build process, see [Building the Project](#building-the-project).
-
+</div>
 <h4 id="gui-en">GUI</h3>
+<div markdown="1">
 The GUI can be launched without a parameter or with the additional parameter `-g,--gui`. All provided parameters will be used in the application.
 
 ![GUI Usage Example](src/main/resources/images/usage.gui_01.png)
@@ -198,6 +203,7 @@ The GUI can be launched without a parameter or with the additional parameter `-g
 Missing required fields will be marked with a red border and a warning dialog when you press the `Calculate` button.
 
 If there is a misconfiguration in the PG/VG ratio, the negative result values will also be marked with a red border.
+</div>
 
 ##### Saving Your Mixture
 You can save your preferred mixing ratio by clicking on the `Save` button. The mixture will be saved in a file called `default_values.properties` and is automatically loaded when the application is restarted.
@@ -312,14 +318,17 @@ Wenn Sie eine Java Runtime Environment (JRE) installiert haben, können Sie die 
 Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbaren Dateien verwenden:
 
 <h5 id="windows-de">Windows</h3>
+<div markdown="1">
 1. Laden Sie `e-liquid-calculator-1.0.0-jar-with-dependencies-windows-x64.exe` oder `e-liquid-calculator-1.0.0-jar-with-dependencies-windows-x64.zip` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
 2. Doppelklicken Sie auf die ausführbare Datei, um die Anwendung zu starten.
-
+</div>
 <h5 id="macos-de">macOS</h3>
+<div markdown="1">
 1. Laden Sie `e-liquid-calculator-1.0.0-jar-with-dependencies-macos-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
 2. Doppelklicken Sie auf `e-liquid-calculator-1.0.0-jar-with-dependencies-macos-x64.app`.
-
+</div>
 <h5 id="linux-de">Linux</h3>
+<div markdown="1">
 1. Laden Sie `e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64` oder `e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
 2. Machen Sie die Datei bei Bedarf ausführbar:
    ```bash
@@ -329,7 +338,7 @@ Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbar
    ```bash
    ./e-liquid-calculator-1.0.0-jar-with-dependencies-linux-x64
    ```
-
+</div>
 ### Verwendung
 
 Sie können das Programm mit optionalen Parametern starten. Um alle Parameter zu erhalten, starten Sie das Programm mit `-h` oder `--help`:
@@ -350,6 +359,7 @@ usage: java -jar e-liquid-calculator-1.0.0-jar-with-dependencies.jar
 ```
 
 <h4 id="terminal-de">Terminal</h3>
+<div markdown="1">
 Um die Anwendung im Terminal auszuführen, benötigen Sie mindestens die Parameter `-a,--amount <arg>`, `-p,--pg <arg>` (0 <= arg <= 1). Wenn `-p` kleiner als 1 ist, müssen Sie zusätzlich `-v,--vg <arg>` und/oder `-w,--water <arg>` angeben, sodass die Summe von PG, VG und Wasser 1 ergibt.
 
 Beispiel Eingabe:
@@ -385,8 +395,9 @@ Wasser:         000,00 ml       000,00 g        00,00%
 ```
 
 Hinweis: Derzeit funktioniert das Terminal nicht für die ausführbare Datei unter Windows. Um eine bekannte Benutzererfahrung unter Windows bereitzustellen, ist das Terminal standardmäßig deaktiviert (silent). Weitere Informationen zum Build-Prozess finden Sie in [Projekt bauen](#projekt-bauen).
-
+</div>
 <h4 id="gui-de">GUI</h3>
+<div markdown="1">
 Die GUI kann ohne Parameter oder mit dem zusätzlichen Parameter `-g,--gui` gestartet werden. Alle bereitgestellten Parameter werden in der Anwendung verwendet.
 
 ![GUI Usage Example](src/main/resources/images/usage.gui_01.png)
@@ -394,7 +405,7 @@ Die GUI kann ohne Parameter oder mit dem zusätzlichen Parameter `-g,--gui` gest
 Fehlende erforderliche Felder werden mit einem roten Rand markiert und ein Warn-Dialog wird angezeigt, wenn Sie auf die Schaltfläche `Berechnen` klicken.
 
 Wenn es eine Fehlkonfiguration im PG/VG-Verhältnis gibt, werden die negativen Ergebniswerte ebenfalls mit einem roten Rand markiert.
-
+</div>
 ##### Mischung speichern
 Sie können Ihr bevorzugtes Mischungsverhältnis speichern, indem Sie auf die Schaltfläche `Speichern` klicken. Die Mischung wird in einer Datei namens `default_values.properties` gespeichert und beim neustart der Anwendung automatisch geladen.
 
