@@ -13,7 +13,7 @@
 		<java.version>17</java.version>
 		<main.class>${project.groupId}.eliquidcalculator.ELiquidCalculatorApplication</main.class>
 		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-		<spring.version>6.1.8</spring.version>
+		<spring.version>6.1.10</spring.version>
 		<commons-cli.version>1.8.0</commons-cli.version>
 		<lombok.version>1.18.32</lombok.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -21,14 +21,14 @@
 		<hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
 		<expressly.version>5.0.0</expressly.version>
 		<slf4j-api.version>2.0.13</slf4j-api.version>
-		<logback-classic.version>1.5.3</logback-classic.version>
+		<logback-classic.version>1.5.6</logback-classic.version>
 		<logback-core.version>${logback-classic.version}</logback-core.version>
 		<mockito-junit-jupiter.version>5.12.0</mockito-junit-jupiter.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
 		<assertj-core.version>3.26.0</assertj-core.version>
 		<assertj-swing-junit.version>3.17.1</assertj-swing-junit.version>
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
 		<maven-failsafe-plugin.version>${maven-surefire-plugin.version}</maven-failsafe-plugin.version>
 		<gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
 		<properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
