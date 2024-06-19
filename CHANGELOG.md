@@ -23,5 +23,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed help output for command-line parameters.
 
 [unreleased]: https://github.com/kirbylink/java-e-liquid-calculator/compare/main...HEAD
-[v1.0.1]: https://github.com/kirbylink/java-e-liquid-calculator.git/compare/v1.0.0...v1.0.1
+[v1.0.1]: https://github.com/kirbylink/java-e-liquid-calculator/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/kirbylink/java-e-liquid-calculator/releases/tag/v1.0.0
