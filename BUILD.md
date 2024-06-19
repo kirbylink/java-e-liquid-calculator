@@ -43,8 +43,7 @@ The [warp](https://github.com/kirbylink/warp) and [warp4j](https://github.com/ki
    For Linux, see the [INSTALL.md of warp4j](https://github.com/kirbylink/warp4j/blob/master/INSTALL.md).
 2. Generate the executables:
    ```bash
-   cd java-e-liquid-calculator
-   warp4j --class-path /<path_to_project>/target/classes/de/dddns/kirbylink --prefix java-e-liquid-calculator --silent --output /<path_to_project>/target /<path_to_project>/target/*-jar-with-dependencies.jar
+   warp4j --class-path /<path_to_project>/target/classes/de/dddns/kirbylink --prefix java-e-liquid-calculator --add-modules jdk.localedata --silent --output /<path_to_project>/target/ /<path_to_project>/target/*-jar-with-dependencies.jar
    ```
 The output files will be located in the `target` directory.
 Downloaded runtimes and prepared bundles are located at `$HOME/.local/share/warp4j`.
@@ -93,7 +92,7 @@ Die Werkzeuge [warp](https://github.com/kirbylink/warp) und [warp4j](https://git
 2. Erstellen Sie die ausführbaren Dateien:
    ```bash
    cd java-e-liquid-calculator
-   warp4j --class-path /<path_to_project>/target/classes/de/dddns/kirbylink --prefix java-e-liquid-calculator --silent --output /<path_to_project>/target /<path_to_project>/target/*-jar-with-dependencies.jar
+   warp4j --class-path /<path_to_project>/target/classes/de/dddns/kirbylink --prefix java-e-liquid-calculator --add-modules jdk.localedata --silent --output /<path_to_project>/target/ /<path_to_project>/target/*-jar-with-dependencies.jar
    ```
 Die Ausgabedateien befinden sich im `target` Verzeichnis.
 Heruntergeladene Laufzeiten und vorbereitete Pakete befinden sich unter `$HOME/.local/share/warp4j`.
