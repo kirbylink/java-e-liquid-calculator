@@ -32,16 +32,11 @@ public class Calculator {
     var dilutionFactor = eLiquidBase.getNicotine() > 0 && targetNicotine > 0 ? (double) eLiquidBase.getNicotine() / targetNicotine : 0;
     var baseAmount = dilutionFactor > 0 ? amount / dilutionFactor : 0;
 
-    var eliquidBase = ELiquidBase.builder()
-        .withAmount(dilutionFactor > 0 ? round(amount / dilutionFactor, 2) : 0)
-        .withPgPercentage(eLiquidBase.getPgPercentage())
-        .withVgPercentage(eLiquidBase.getVgPercentage())
-        .withWaterPercentage(eLiquidBase.getWaterPercentage())
-        .build();
+    eLiquidBase.setAmount(round(baseAmount, 2));
 
     return Result.builder()
         .withAmount(amount)
-        .withEliquidBase(eliquidBase)
+        .withEliquidBase(eLiquidBase)
         .withPg(round(amount * pgPercentage - baseAmount * eLiquidBase.getPgPercentage(), 2))
         .withVg(round(amount * vgPercentage - baseAmount * eLiquidBase.getVgPercentage(), 2))
         .withWater(round(amount * waterPercentage - baseAmount * eLiquidBase.getWaterPercentage(), 2))
