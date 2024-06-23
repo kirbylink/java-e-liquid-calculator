@@ -3,6 +3,7 @@ package de.dddns.kirbylink.eliquidcalculator.model;
 import de.dddns.kirbylink.eliquidcalculator.exceptions.ValidationException;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -13,7 +14,8 @@ public class ELiquidBase {
   private final double pgPercentage;
   private final double vgPercentage;
   private final double waterPercentage;
-  private final double amount;
+  @Setter
+  private double amount;
 
   public static ELiquidBaseBuilder builder() {
     return new CustomELiquidBaseBuilder();
