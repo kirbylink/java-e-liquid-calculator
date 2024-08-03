@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -53,6 +53,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       // Given
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           usage: java -jar e-liquid-calculator-<version>-jar-with-dependencies.jar
@@ -71,9 +72,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
       // When
       ELiquidCalculatorApplication.main(args.split("\\s+"));
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-      assertThat(consoleOuptut).contains(expectedOutput);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args.split("\\s+"));
+
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     private static Stream<Arguments> provideArgsWithHelpParameterForMainMethod() {
@@ -106,7 +114,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -133,7 +141,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -159,7 +167,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -185,7 +193,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -211,7 +219,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -237,7 +245,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -263,7 +271,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args);
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
@@ -325,7 +333,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       ELiquidCalculatorApplication.main(args.toArray(new String[0]));
 
       // Then
-      var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
       assertThat(consoleOuptut).contains(expectedOutput);
     }
 
