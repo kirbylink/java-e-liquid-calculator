@@ -7,7 +7,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -108,15 +108,20 @@ class ConsoleServiceTest {
     when(internationalizationService.requiredQuantityOutput(resultVolumeWeightPercentage)).thenReturn(expectedOutput);
     var byteArrayOutputStream  = new ByteArrayOutputStream();
     var printStream = new PrintStream(byteArrayOutputStream);
+    var originalOut = System.out;
     System.setOut(printStream);
 
-    // When
-    args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "1"};
-    consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
+    try {
+      // When
+      args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "1"};
+      consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
 
-    // Then
-    var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-    assertThat(consoleOuptut).contains(expectedOutput);
+      // Then
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+      assertThat(consoleOuptut).contains(expectedOutput);
+    } finally {
+      System.setOut(originalOut);
+    }
   }
 
   @Test
@@ -172,15 +177,21 @@ class ConsoleServiceTest {
     when(internationalizationService.requiredQuantityOutput(resultVolumeWeightPercentage)).thenReturn(expectedOutput);
     var byteArrayOutputStream  = new ByteArrayOutputStream();
     var printStream = new PrintStream(byteArrayOutputStream);
+    var originalOut = System.out;
     System.setOut(printStream);
 
-    // When
-    args = new String[]{"-a", "800", "-p", "0.50", "-w", "0.50", "-bn", "48", "-bp", "1"};
-    consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
+    try {
+      // When
+      args = new String[]{"-a", "800", "-p", "0.50", "-w", "0.50", "-bn", "48", "-bp", "1"};
+      consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
 
-    // Then
-    var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-    assertThat(consoleOuptut).contains(expectedOutput);
+      // Then
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+      assertThat(consoleOuptut).contains(expectedOutput);
+    } finally {
+      System.setOut(originalOut);
+    }
+
   }
 
   @Test
@@ -206,15 +217,21 @@ class ConsoleServiceTest {
     when(internationalizationService.getMessage("calculator.exception.illegal.argument.errormessage")).thenReturn("Das Nikotin der Base muss größer oder gleich dem Nikotin im fertigen Liquid sein");
     var byteArrayOutputStream  = new ByteArrayOutputStream();
     var printStream = new PrintStream(byteArrayOutputStream);
+    var originalOut = System.out;
     System.setOut(printStream);
 
-    // When
-    args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6","-bp", "1"};
-    consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
+    try {
+      // When
+      args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6","-bp", "1"};
+      consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
 
-    // Then
-    var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-    assertThat(consoleOuptut).contains(expectedOutput);
+      // Then
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+      assertThat(consoleOuptut).contains(expectedOutput);
+    } finally {
+      System.setOut(originalOut);
+    }
+
   }
 
   @Test
@@ -241,15 +258,20 @@ class ConsoleServiceTest {
 
     var byteArrayOutputStream  = new ByteArrayOutputStream();
     var printStream = new PrintStream(byteArrayOutputStream);
+    var originalOut = System.out;
     System.setOut(printStream);
 
-    // When
-    args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6","-bn", "48"};
-    consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
+    try {
+      // When
+      args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6","-bn", "48"};
+      consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
 
-    // Then
-    var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-    assertThat(consoleOuptut).contains(errorMessage);
+      // Then
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+      assertThat(consoleOuptut).contains(errorMessage);
+    } finally {
+      System.setOut(originalOut);
+    }
   }
 
   @Test
@@ -263,14 +285,19 @@ class ConsoleServiceTest {
 
     var byteArrayOutputStream  = new ByteArrayOutputStream();
     var printStream = new PrintStream(byteArrayOutputStream);
+    var originalOut = System.out;
     System.setOut(printStream);
 
-    // When
-    args = new String[]{"-a", "n", "-p", "0.5", "-v", "0.5", "-n", "6","-bn", "48"};
-    consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
+    try {
+      // When
+      args = new String[]{"-a", "n", "-p", "0.5", "-v", "0.5", "-n", "6","-bn", "48"};
+      consoleService.printVolumeWeightAndPercentageOfRequiredQuantity(args);
 
-    // Then
-    var consoleOuptut = byteArrayOutputStream.toString(Charset.defaultCharset());
-    assertThat(consoleOuptut).contains(errorMessage);
+      // Then
+      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+      assertThat(consoleOuptut).contains(errorMessage);
+    } finally {
+      System.setOut(originalOut);
+    }
   }
 }
