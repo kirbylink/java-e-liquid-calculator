@@ -99,6 +99,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "1"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -110,12 +111,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t000,00 ml\t000,00 g\t00,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -126,6 +131,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "1"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Required amounts
@@ -137,12 +143,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Water:\t\t000.00 ml\t000.00 g\t00.00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -152,6 +162,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.55", "-v", "0.35", "-w", "0.10", "-n", "6", "-bn", "48", "-bp", "1"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -163,12 +174,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t080,00 ml\t080,00 g\t10,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -178,6 +193,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "0.5", "-bv", "0.5"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -189,12 +205,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t000,00 ml\t000,00 g\t00,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -204,6 +224,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.55", "-v", "0.35", "-w", "0.10", "-n", "6", "-bn", "48", "-bp", "0.5", "-bv", "0.5"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -215,12 +236,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t080,00 ml\t080,00 g\t10,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -230,6 +255,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "1", "-n", "6", "-bn", "48", "-bp", "1"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -241,12 +267,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t000,00 ml\t000,00 g\t00,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
@@ -256,6 +286,7 @@ class ELiquidCalculatorApplicationIntegrationTest {
       String[] args = {"-a", "800", "-p", "0.5", "-v", "0.5"};
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = """
           Benötigte Mengen
@@ -267,12 +298,16 @@ class ELiquidCalculatorApplicationIntegrationTest {
           Wasser:\t\t000,00 ml\t000,00 g\t00,00%
           -----------------------------------------------------------""";
 
-      // When
-      ELiquidCalculatorApplication.main(args);
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args);
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Nested
@@ -326,15 +361,20 @@ class ELiquidCalculatorApplicationIntegrationTest {
       // Given
       var byteArrayOutputStream  = new ByteArrayOutputStream();
       var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
       System.setOut(printStream);
       var expectedOutput = "Gui successfully started.";
 
-      // When
-      ELiquidCalculatorApplication.main(args.toArray(new String[0]));
+      try {
+        // When
+        ELiquidCalculatorApplication.main(args.toArray(new String[0]));
 
-      // Then
-      var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
-      assertThat(consoleOuptut).contains(expectedOutput);
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+        assertThat(consoleOuptut).contains(expectedOutput);
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     private static Stream<Arguments> provideArrayListWithGuiParameterForMainMethod() {
