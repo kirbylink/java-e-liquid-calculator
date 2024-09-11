@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea to improve the Java E-Liquid Calculator
+about: Suggest an idea to improve the Application
 title: ''
 labels: ''
 assignees: ''

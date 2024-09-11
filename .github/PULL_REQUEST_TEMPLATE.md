@@ -26,7 +26,7 @@ Please delete options that are not relevant.
 
 <!--
 **Unit Tests:**
-- Add a unit test for the `calculateAmount` method to ensure invalid inputs are handled correctly.
+- Add a unit test for the `doSomething` method to ensure invalid inputs are handled correctly.
   - Test A: Pass an invalid number (e.g., "abc") and verify that an error message is returned.
   - Test B: Pass a negative number and verify that the appropriate error message is returned.
 
