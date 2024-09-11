@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The latest version of the Java E-Liquid Calculator is currently supported. Please ensure you are using the most recent version to receive the latest security updates.
+The latest version of the Application is currently supported. Please ensure you are using the most recent version to receive the latest security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |

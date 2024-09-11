@@ -12,6 +12,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 		<main.class>${project.groupId}.eliquidcalculator.ELiquidCalculatorApplication</main.class>
+		<gitflow.productionBranch>main</gitflow.productionBranch>
+		<gitflow.developmentBranch>develop</gitflow.developmentBranch>
+		<gitflow.versionTagPrefix>v</gitflow.versionTagPrefix>
 		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
 		<spring.version>6.1.10</spring.version>
 		<commons-cli.version>1.8.0</commons-cli.version>
@@ -261,7 +264,9 @@
 				<version>${gitflow-maven-plugin.version}</version>
 				<configuration>
 					<gitFlowConfig>
-						<versionTagPrefix>v</versionTagPrefix>
+						<productionBranch>${gitflow.productionBranch}</productionBranch>
+						<developmentBranch>${gitflow.developmentBranch}</developmentBranch>
+						<versionTagPrefix>${gitflow.versionTagPrefix}</versionTagPrefix>
 					</gitFlowConfig>
 				</configuration>
 			</plugin>

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve the Java E-Liquid Calculator
+about: Create a report to help to improve the Application
 title: ''
 labels: ''
 assignees: ''
