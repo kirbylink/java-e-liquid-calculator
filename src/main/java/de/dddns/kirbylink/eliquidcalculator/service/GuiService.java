@@ -151,7 +151,7 @@ public class GuiService {
     var commandLine = optionalCommandLine.get();
 
     /**
-    * // Enable temporär for WindowBuilder
+    * // Enable temporary for WindowBuilder
     * var jFrameEliquidCalculator = new JFrame();
     */
 
