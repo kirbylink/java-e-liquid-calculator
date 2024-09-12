@@ -6,7 +6,7 @@
 	<artifactId>e-liquid-calculator</artifactId>
 	<name>Java E-Liquid Calculator</name>
 	<description>An application to calculate the amount of raw materials for preparing e-liquid</description>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -16,24 +16,24 @@
 		<gitflow.developmentBranch>develop</gitflow.developmentBranch>
 		<gitflow.versionTagPrefix>v</gitflow.versionTagPrefix>
 		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-		<spring.version>6.1.10</spring.version>
-		<commons-cli.version>1.8.0</commons-cli.version>
-		<lombok.version>1.18.32</lombok.version>
-		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<spring.version>6.1.13</spring.version>
+		<commons-cli.version>1.9.0</commons-cli.version>
+		<lombok.version>1.18.34</lombok.version>
+		<mapstruct.version>1.6.0</mapstruct.version>
 		<lombok-mapsturct-binding.version>0.2.0</lombok-mapsturct-binding.version>
-		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
-		<hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+		<jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
+		<hibernate-validator.version>9.0.0.Beta3</hibernate-validator.version>
 		<expressly.version>5.0.0</expressly.version>
-		<slf4j-api.version>2.0.13</slf4j-api.version>
-		<logback-classic.version>1.5.6</logback-classic.version>
-		<mockito.version>5.12.0</mockito.version>
-		<junit-jupiter.version>5.10.2</junit-jupiter.version>
-		<assertj-core.version>3.26.0</assertj-core.version>
+		<slf4j-api.version>2.0.16</slf4j-api.version>
+		<logback-classic.version>1.5.8</logback-classic.version>
+		<mockito.version>5.13.0</mockito.version>
+		<junit-jupiter.version>5.11.0</junit-jupiter.version>
+		<assertj-core.version>3.26.3</assertj-core.version>
 		<assertj-swing.version>3.17.1</assertj-swing.version>
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
-		<maven-failsafe-plugin.version>${maven-surefire-plugin.version}</maven-failsafe-plugin.version>
-		<maven-dependency-plugin.version>3.7.1</maven-dependency-plugin.version>
+		<maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
+		<maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
 		<gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
 		<properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
 	</properties>
