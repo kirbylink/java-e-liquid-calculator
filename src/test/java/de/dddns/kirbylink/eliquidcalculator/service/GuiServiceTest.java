@@ -11,10 +11,6 @@ import java.util.Locale;
 import javax.swing.JFrame;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,18 +46,6 @@ class GuiServiceTest {
   private PersistentService persistentService;
   @InjectMocks
   private GuiService guiService;
-
-  @BeforeAll
-  static void setUpBeforeClass() throws Exception {}
-
-  @AfterAll
-  static void tearDownAfterClass() throws Exception {}
-
-  @BeforeEach
-  void setUp() throws Exception {}
-
-  @AfterEach
-  void tearDown() throws Exception {}
 
   @Test
   void testOpenWindow() throws IOException {

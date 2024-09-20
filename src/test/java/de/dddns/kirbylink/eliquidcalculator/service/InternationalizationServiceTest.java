@@ -1,6 +1,6 @@
 package de.dddns.kirbylink.eliquidcalculator.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 import java.util.Locale;
 import org.junit.jupiter.api.AfterEach;
