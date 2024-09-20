@@ -1,7 +1,7 @@
 package de.dddns.kirbylink.eliquidcalculator.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -189,7 +189,7 @@ class PersistentServiceTest {
     }
 
     @Test
-    void testLoadValues_WhenFileDoesNotExist_ThenPersistentValuesContainsOnlyZeroValues() throws IOException {
+    void testLoadValues_WhenFileDoesNotExist_ThenPersistentValuesContainsOnlyZeroValues() {
       // Given
       var directoryPath = "invalid/path";
 
