@@ -1,7 +1,7 @@
 package de.dddns.kirbylink.eliquidcalculator.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import org.junit.jupiter.api.AfterEach;

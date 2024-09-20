@@ -1,6 +1,6 @@
 package de.dddns.kirbylink.eliquidcalculator.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -380,9 +380,10 @@ class GuiServiceIntegrationTest {
     }
 
     private void verifyBorders(String component, Color expectedColor, String... componentNames) {
-      switch (component) {
-        case "JTextField" -> Arrays.stream(componentNames).forEach(componentName -> assertThat(((LineBorder) window.textBox(componentName).target().getBorder()).getLineColor()).isEqualTo(expectedColor));
-        case "JLabel" -> Arrays.stream(componentNames).forEach(componentName -> assertThat(((LineBorder) window.label(componentName).target().getBorder()).getLineColor()).isEqualTo(expectedColor));
+      if ("JTextField".equals(component)) {
+        Arrays.stream(componentNames).forEach(componentName -> assertThat(((LineBorder) window.textBox(componentName).target().getBorder()).getLineColor()).isEqualTo(expectedColor));
+      } else if ("JLabel".equals(component)) {
+        Arrays.stream(componentNames).forEach(componentName -> assertThat(((LineBorder) window.label(componentName).target().getBorder()).getLineColor()).isEqualTo(expectedColor));
       }
     }
   }
