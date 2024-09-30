@@ -109,7 +109,7 @@ If you have a Java Runtime Environment (JRE) installed, you can use the compiled
 1. [Compile the source code](#using-the-source-code) or download the latest release (JAR that ends with `-jar-with-dependencies`) from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page.
 2. Double-click the JAR file (you may need to make it executable first, depending on your OS) or, if your OS doesn't support this, run the JAR file:
    ```bash
-   java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+   java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
    ```
 
 #### Using Executable Files
@@ -119,7 +119,7 @@ For a more straightforward experience, you can use the platform-specific executa
 
 <div markdown="1">
 
-1. Download `e-liquid-calculator-1.0.2-jar-with-dependencies-windows-x64.exe` or `e-liquid-calculator-1.0.2-jar-with-dependencies-windows-x64.zip` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
+1. Download `e-liquid-calculator-1.0.3-jar-with-dependencies-windows-x64.exe` or `e-liquid-calculator-1.0.3-jar-with-dependencies-windows-x64.zip` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
 2. Double-click the executable to run the application.
 
 </div>
@@ -128,8 +128,8 @@ For a more straightforward experience, you can use the platform-specific executa
 
 <div markdown="1">
 
-1. Download `e-liquid-calculator-1.0.2-jar-with-dependencies-macos-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
-2. Double-click `e-liquid-calculator-1.0.2-jar-with-dependencies-macos-x64.app`.
+1. Download `e-liquid-calculator-1.0.3-jar-with-dependencies-macos-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
+2. Double-click `e-liquid-calculator-1.0.3-jar-with-dependencies-macos-x64.app`.
 
 </div>
 
@@ -137,14 +137,14 @@ For a more straightforward experience, you can use the platform-specific executa
 
 <div markdown="1">
 
-1. Download `e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64` or `e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
+1. Download `e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64` or `e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64.tar.gz` from the [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) page and extract it.
 2. Make the file executable if necessary:
    ```bash
-   chmod +x e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64
+   chmod +x e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64
    ```
 3. Double-click the executable to run the application, or if your OS doesn't support it, run the application:
    ```bash
-   ./e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64
+   ./e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64
    ```
 
 </div>
@@ -153,7 +153,7 @@ For a more straightforward experience, you can use the platform-specific executa
 
 You can start the program with optional parameters. To get all parameters, start the program with `-h` or `--help`:
 ```bash
-usage: java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+usage: java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
  -a,--amount <arg>           The total amount of finished liquid
  -bn,--base-nicotine <arg>   The nicotine content in the base liquid
  -bp,--base-pg <arg>         The percentage of PG in the base liquid
@@ -176,7 +176,7 @@ To run the application in the terminal, you need at least the parameters `-a,--a
 
 Example Input:
 ```bash
-java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar -a 800 -p 1
+java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar -a 800 -p 1
 ```
 Result:
 ```bash
@@ -192,7 +192,7 @@ Water:          000.00 ml       000.00 g        00.00%
 
 Example Input:
 ```bash
-java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar -a 800 -p 0.5 -v 0.5
+java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar -a 800 -p 0.5 -v 0.5
 ```
 Result:
 ```bash
@@ -235,7 +235,7 @@ The application supports different languages and country settings. You can set t
 **Example**<br />
 To set the language to German (`de`) and the country to Germany (`DE`):
 ```bash
-java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
 ```
 
 #### Explanation of JVM Options
@@ -253,11 +253,11 @@ The language files are located in the `src/main/resources/messages` folder. Feel
 #### Examples with Language and Country Settings
 - English (default):
   ```bash
-  java -Duser.language=en -Duser.country=EN -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+  java -Duser.language=en -Duser.country=EN -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
   ```
 - German:
   ```bash
-  java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+  java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
   ```
 
 #### Language and Country Settings in the GUI
@@ -330,7 +330,7 @@ Wenn Sie eine Java Runtime Environment (JRE) installiert haben, können Sie die 
 1. [Kompilieren Sie den Quellcode](#verwendung-des-quellcodes) oder laden Sie die neueste Version (JAR, die mit `-jar-with-dependencies` endet) von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter.
 2. Doppelklicken Sie auf die JAR-Datei (möglicherweise müssen Sie sie zuerst ausführbar machen, je nach Betriebssystem) oder, wenn Ihr Betriebssystem dies nicht unterstützt, führen Sie die JAR-Datei aus:
    ```bash
-   java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+   java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
    ```
 
 #### Verwendung ausführbarer Dateien
@@ -340,7 +340,7 @@ Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbar
 
 <div markdown="1">
 
-1. Laden Sie `e-liquid-calculator-1.0.2-jar-with-dependencies-windows-x64.exe` oder `e-liquid-calculator-1.0.2-jar-with-dependencies-windows-x64.zip` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
+1. Laden Sie `e-liquid-calculator-1.0.3-jar-with-dependencies-windows-x64.exe` oder `e-liquid-calculator-1.0.3-jar-with-dependencies-windows-x64.zip` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
 2. Doppelklicken Sie auf die ausführbare Datei, um die Anwendung zu starten.
 
 </div>
@@ -349,8 +349,8 @@ Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbar
 
 <div markdown="1">
 
-1. Laden Sie `e-liquid-calculator-1.0.2-jar-with-dependencies-macos-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
-2. Doppelklicken Sie auf `e-liquid-calculator-1.0.2-jar-with-dependencies-macos-x64.app`.
+1. Laden Sie `e-liquid-calculator-1.0.3-jar-with-dependencies-macos-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
+2. Doppelklicken Sie auf `e-liquid-calculator-1.0.3-jar-with-dependencies-macos-x64.app`.
 
 </div>
 
@@ -358,14 +358,14 @@ Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbar
 
 <div markdown="1">
 
-1. Laden Sie `e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64` oder `e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
+1. Laden Sie `e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64` oder `e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64.tar.gz` von der [Releases](https://github.com/kirbylink/java-e-liquid-calculator/releases) Seite herunter und entpacken Sie es.
 2. Machen Sie die Datei bei Bedarf ausführbar:
    ```bash
-   chmod +x e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64
+   chmod +x e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64
    ```
 3. Doppelklicken Sie auf die ausführbare Datei, um die Anwendung zu starten, oder wenn Ihr Betriebssystem dies nicht unterstützt, führen Sie die Anwendung aus:
    ```bash
-   ./e-liquid-calculator-1.0.2-jar-with-dependencies-linux-x64
+   ./e-liquid-calculator-1.0.3-jar-with-dependencies-linux-x64
    ```
 
 </div>
@@ -374,7 +374,7 @@ Für eine einfachere Erfahrung können Sie die plattformspezifischen ausführbar
 
 Sie können das Programm mit optionalen Parametern starten. Um alle Parameter zu erhalten, starten Sie das Programm mit `-h` oder `--help`:
 ```bash
-usage: java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+usage: java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
  -a,--amount <arg>           Die Gesamtmenge des fertigen Liquids
  -bn,--base-nicotine <arg>   Der Nikotingehalt im Baseliquid
  -bp,--base-pg <arg>         Der Prozentsatz an PG im Baseliquid
@@ -397,7 +397,7 @@ Um die Anwendung im Terminal auszuführen, benötigen Sie mindestens die Paramet
 
 Beispiel Eingabe:
 ```bash
-java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar -a 800 -p 1
+java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar -a 800 -p 1
 ```
 Ergebnis:
 ```bash
@@ -413,7 +413,7 @@ Wasser:         000,00 ml       000,00 g        00,00%
 
 Beispiel Eingabe:
 ```bash
-java -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar -a 800 -p 0.5 -v 0.5
+java -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar -a 800 -p 0.5 -v 0.5
 ```
 Ergebnis:
 ```bash
@@ -456,7 +456,7 @@ Die Anwendung unterstützt verschiedene Sprachen und Ländereinstellungen. Sie k
 **Beispiel**<br />
 Um die Sprache auf Deutsch (`de`) und das Land auf Deutschland (`DE`) zu setzen:
 ```bash
-java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
 ```
 
 #### Erklärung der JVM-Optionen
@@ -474,11 +474,11 @@ Die Sprachdateien befinden sich im Ordner `src/main/resources/messages`. Fühlen
 #### Beispiele mit Sprach- und Ländereinstellungen
 - Englisch (Standard):
   ```bash
-  java -Duser.language=en -Duser.country=EN -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+  java -Duser.language=en -Duser.country=EN -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
   ```
 - Deutsch:
   ```bash
-  java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.2-jar-with-dependencies.jar
+  java -Duser.language=de -Duser.country=DE -jar e-liquid-calculator-1.0.3-jar-with-dependencies.jar
   ```
 
 #### Sprache und Ländereinstellungen in der GUI
