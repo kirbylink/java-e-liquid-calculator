@@ -10,6 +10,7 @@ import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfigurati
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_VG_SHORT_OPTION;
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_WATER_SHORT_OPTION;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,8 +32,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -48,6 +54,7 @@ import de.dddns.kirbylink.eliquidcalculator.exceptions.ValidationException;
 import de.dddns.kirbylink.eliquidcalculator.model.ELiquidBase;
 import de.dddns.kirbylink.eliquidcalculator.model.ResultVolumeWeightPercentage;
 import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.PersistentValues;
+import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +83,8 @@ public class GuiService {
   private static final String GUI_LABEL_WATER = "gui.label.water";
   private static final String GUI_LABEL_NICOTINE = "gui.label.nicotine";
   private static final String GUI_LABEL_BASIC_SUBSTANCES = "gui.label.basic.substances";
+  private static final String GUI_MENUBAR_HELP = "gui.menubar.help";
+  private static final String GUI_MENUBAR_HELP_MENU_ITEM_ABOUT = "gui.menubar.help.menuitem.about";
   private static final String DEJA_VU_SANS = "DejaVu Sans";
   private static final String PG = "PG";
   private static final String VG = "VG";
@@ -94,8 +103,11 @@ public class GuiService {
   private final CommandLineConfiguration commandLineConfiguration;
   private final FocusListener focusListener;
   private final PersistentService persistentService;
+  private final AboutInformation aboutInformation;
 
   private KeyAdapter keyAdapter;
+  private JMenu menuHelp;
+  private JMenuItem menuItemHelpAbout;
   private JLabel labelBasicMaterials;
   private JLabel labelNicotine;
   private JLabel labelBasicMaterialsWaterPercent;
@@ -167,9 +179,12 @@ public class GuiService {
     gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
     gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
     jFrameEliquidCalculator.getContentPane().setLayout(gridBagLayout);
+
     keyAdapter = guiConfiguration.keyAdapter(this::calculateRequiredQuantity);
 
     var values = getValuesFromArgumentsOrProperty(args, commandLine);
+
+    buildMenuBarOfJFrame();
 
     buildHeaderPartOfJFrame();
 
@@ -183,6 +198,26 @@ public class GuiService {
     textBasicMaterialsBaseLiquidNicotine.requestFocus();
 
     log.debug("Gui successfully started.");
+  }
+
+  private void buildMenuBarOfJFrame() {
+    var menuBar = new JMenuBar();
+    menuBar.setName("menuBar");
+    jFrameEliquidCalculator.setJMenuBar(menuBar);
+
+    menuHelp = new JMenu(internationalizationService.getMessage(GUI_MENUBAR_HELP));
+    menuHelp.setName("menuHelp");
+    menuHelp.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+    menuBar.add(menuHelp);
+
+    menuItemHelpAbout = new JMenuItem(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
+    menuItemHelpAbout.setName("menuItemHelpAbout");
+    menuItemHelpAbout.addActionListener(e -> 
+      openAboutDialog("Version: " + aboutInformation.getApplicationVersion() + System.lineSeparator() +
+          System.lineSeparator() +
+          aboutInformation.getJavaInformation(), internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT))
+    );
+    menuHelp.add(menuItemHelpAbout);
   }
 
   private void buildHeaderPartOfJFrame() throws IOException {
@@ -1010,6 +1045,9 @@ public class GuiService {
     labelRequiredQuantityPercent.setText(internationalizationService.getMessage(GUI_LABEL_PERCENT));
     labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
 
+    menuHelp.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP));
+    menuItemHelpAbout.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
+
     if (!labelRequiredQuantityBaseLiquidPercentResult.getText().equals("0")) {
       calculateRequiredQuantity();
     }
@@ -1115,6 +1153,18 @@ public class GuiService {
   protected void openDialog(String message, String title) {
     var labelMessage = new JLabel(message, SwingConstants.CENTER);
     var jOptionPane = new JOptionPane(labelMessage);
+    var jDialog = jOptionPane.createDialog(title);
+    jDialog.setModalityType(ModalityType.MODELESS);
+    jDialog.setVisible(true);
+  }
+
+  protected void openAboutDialog(String message, String title) {
+    var textArea = new JTextArea(message);
+    textArea.setEditable(false);
+    textArea.setWrapStyleWord(false);
+    textArea.setLineWrap(false);
+    var jOptionPane = new JOptionPane(new JScrollPane(textArea));
+    jOptionPane.setPreferredSize(new Dimension(400, 300));
     var jDialog = jOptionPane.createDialog(title);
     jDialog.setModalityType(ModalityType.MODELESS);
     jDialog.setVisible(true);

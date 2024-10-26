@@ -33,6 +33,7 @@ class CommandLineConfigurationTest {
     when(internationalizationService.getMessage("cli.base.vg.description")).thenReturn("The amount of vg in the base");
     when(internationalizationService.getMessage("cli.base.water.description")).thenReturn("The amount of water in the base");
     when(internationalizationService.getMessage("cli.help.description")).thenReturn("Print this message");
+    when(internationalizationService.getMessage("cli.version.description")).thenReturn("Version information");
     when(internationalizationService.getMessage("cli.gui.description")).thenReturn("Starts the gui interface");
   }
 
@@ -105,6 +106,8 @@ class CommandLineConfigurationTest {
     assertThat(options.getOption("h").isRequired()).isFalse();
     assertThat(options.hasShortOption("g")).isTrue();
     assertThat(options.getOption("g").isRequired()).isFalse();
+    assertThat(options.hasLongOption("version")).isTrue();
+    assertThat(options.getOption("version").isRequired()).isFalse();
   }
 
   @Test
@@ -137,6 +140,8 @@ class CommandLineConfigurationTest {
     assertThat(options.getOption("h").isRequired()).isFalse();
     assertThat(options.hasShortOption("g")).isTrue();
     assertThat(options.getOption("g").isRequired()).isFalse();
+    assertThat(options.hasLongOption("version")).isTrue();
+    assertThat(options.getOption("version").isRequired()).isFalse();
   }
 
 }

@@ -74,7 +74,8 @@ class UtilityTest {
       Arguments.of(new String[]{"-a", "800", "-p", "1", "-n", "6", "-bn", "48", "-bp", "1", "-h"}, "-p", "--print", true),
       Arguments.of(new String[]{"-a", "800", "--pg", "1", "-n", "6", "-bn", "48", "-bp", "1", "-h"}, "-c", "--pg", true),
       Arguments.of(new String[]{"-a", "800", "-p", "1", "-n", "6", "-bn", "48", "-bp", "1", "-h"}, "-c", "--clear", false),
-      Arguments.of(new String[0], "-p", "--pg", false)
+      Arguments.of(new String[0], "-p", "--pg", false),
+      Arguments.of(null, "-p", "--pg", false)
     );
   }
 }
