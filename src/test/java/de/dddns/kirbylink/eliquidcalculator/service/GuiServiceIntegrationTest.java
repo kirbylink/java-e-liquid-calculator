@@ -45,6 +45,7 @@ import de.dddns.kirbylink.eliquidcalculator.config.GuiConfiguration;
 import de.dddns.kirbylink.eliquidcalculator.config.InternationalizationConfiguration;
 import de.dddns.kirbylink.eliquidcalculator.converter.ResultVolumeWeightPercentageMapper;
 import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.PersistentValues;
+import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
@@ -72,6 +73,8 @@ class GuiServiceIntegrationTest {
   CommandLineService commandLineService;
   @Autowired
   FocusListener focusListener;
+  @Autowired
+  AboutInformation aboutInformation;
   @Mock
   PersistentService persistentService;
   @Mock
@@ -82,7 +85,9 @@ class GuiServiceIntegrationTest {
 
   @BeforeEach
   void setUp() {
-    guiService = new GuiService(jFrame, guiConfiguration, internationalizationConfiguration, internationalizationService, calculator, resultVolumeWeightPercentageMapper, commandLineService, commandLineConfiguration, focusListener, persistentService);
+    guiService = new GuiService(jFrame, guiConfiguration, internationalizationConfiguration, internationalizationService,
+        calculator, resultVolumeWeightPercentageMapper, commandLineService,
+        commandLineConfiguration, focusListener, persistentService, aboutInformation);
     guiServiceSpy = spy(guiService);
     robot = BasicRobot.robotWithCurrentAwtHierarchy();
     window = new FrameFixture(robot, jFrame);
@@ -314,6 +319,22 @@ class GuiServiceIntegrationTest {
     verify(guiServiceSpy).openDialog(anyString(), eq(title));
   }
 
+  @Test
+  void testMain_WhenGuiStartedAndMenuBarAndMenuHelpAndMenuItemAboutIsClicked_ThenDialogWithAboutInformationIsDisplayed() throws Exception {
+
+    // Given
+    internationalizationConfiguration.setLocale(Locale.GERMAN);
+    when(persistentService.loadValues()).thenReturn(PersistentValues.builder().build());
+
+    // When
+    guiServiceSpy.openWindow(new String[0]);
+    window.menuItem("menuItemHelpAbout").click();
+
+    // Then
+    var title = "Über";
+    verify(guiServiceSpy).openAboutDialog(anyString(), eq(title));
+  }
+
   @Nested
   @DisplayName("Test for failure handling")
   class TestsForFailureHandling {
@@ -358,9 +379,6 @@ class GuiServiceIntegrationTest {
       guiServiceSpy.openWindow(new String[0]);
       fillTextFields("48", "0", "50", "50", "6", "50", "50", "0", "n");
       window.button("buttonCalculate").click();
-
-      // Then
-      verify(guiServiceSpy).calculateRequiredQuantity();
 
       // Then
       verify(guiServiceSpy).calculateRequiredQuantity();

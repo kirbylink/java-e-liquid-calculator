@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.commons.cli.ParseException;
 import org.junit.jupiter.api.AfterEach;
@@ -67,10 +68,9 @@ class ELiquidCalculatorApplicationIntegrationTest {
            -n,--nicotine <arg>         Die Nikotinmenge im fertigen Liquid
            -p,--pg <arg>               Prozentualer PG-Anteil im fertigen Liquid
            -v,--vg <arg>               Prozentualer VG-Anteil im fertigen Liquid
+              --version                Zeigt die Version dieser Anwendung und die
+                                       Java VM Informationen an
            -w,--water <arg>            Prozentualer Wasseranteil im fertigen Liquid""";
-
-      // When
-      ELiquidCalculatorApplication.main(args.split("\\s+"));
 
       try {
         // When
@@ -90,6 +90,31 @@ class ELiquidCalculatorApplicationIntegrationTest {
               Arguments.of("-p 1 -n 6 -bn 48 -bp 1 -h"),
               Arguments.of("-h")
       );
+    }
+
+    @Test
+    void testMain_WhenParameterForVersionIsSet_ThenAboutInformationIsPrintedOut() throws BeansException, ParseException, IOException  {
+
+      // Given
+      var byteArrayOutputStream  = new ByteArrayOutputStream();
+      var printStream = new PrintStream(byteArrayOutputStream);
+      var originalOut = System.out;
+      System.setOut(printStream);
+      var expectedOutputRegex = "Version: .*\\n\\nJava Version: .*\\nJava Runtime Version: .*\\nJava Vendor: .*\\nJava Vendor Url: .*\\nJava VM Name: .*\\nJava VM Version: .*\\nJava VM Vendor: .*";
+
+      try {
+        // When
+        ELiquidCalculatorApplication.main(new String[] {"--version"});
+
+        // Then
+        var consoleOuptut = byteArrayOutputStream.toString(StandardCharsets.UTF_8);
+
+        var pattern = Pattern.compile(expectedOutputRegex, Pattern.DOTALL);
+        assertThat(consoleOuptut).containsPattern(pattern);
+
+      } finally {
+        System.setOut(originalOut);
+      }
     }
 
     @Test
