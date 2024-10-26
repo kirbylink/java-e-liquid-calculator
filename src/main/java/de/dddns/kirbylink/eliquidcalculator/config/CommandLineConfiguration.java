@@ -35,6 +35,7 @@ public class CommandLineConfiguration {
   public static final String CLI_HELP_SHORT_OPTION = "h";
   public static final String CLI_HELP_LONG_OPTION = "help";
   public static final String CLI_GUI_SHORT_OPTION = "g";
+  public static final String CLI_VERSION_LONG_OPTION = "version";
   public static final String CLI_GUI_LONG_OPTION = "gui";
 
   private final InternationalizationService internationalizationService;
@@ -70,8 +71,11 @@ public class CommandLineConfiguration {
     options.addOption(createOption(CLI_BASE_PG_SHORT_OPTION, CLI_BASE_PG_LONG_OPTION, true, internationalizationService.getMessage("cli.base.pg.description"), double.class, false));
     options.addOption(createOption(CLI_BASE_VG_SHORT_OPTION, CLI_BASE_VG_LONG_OPTION, true, internationalizationService.getMessage("cli.base.vg.description"), double.class, false));
     options.addOption(createOption(CLI_BASE_WATER_SHORT_OPTION, CLI_BASE_WATER_LONG_OPTION, true, internationalizationService.getMessage("cli.base.water.description"), double.class, false));
-    options.addOption(createOption(CLI_HELP_SHORT_OPTION, CLI_HELP_LONG_OPTION, false, internationalizationService.getMessage("cli.help.description"), double.class, false));
-    options.addOption(createOption(CLI_GUI_SHORT_OPTION, CLI_GUI_LONG_OPTION, false, internationalizationService.getMessage("cli.gui.description"), double.class, false));
+    options.addOption(createOption(CLI_HELP_SHORT_OPTION, CLI_HELP_LONG_OPTION, false, internationalizationService.getMessage("cli.help.description"), null, false));
+    options.addOption(createOption(null, CLI_VERSION_LONG_OPTION,  false, internationalizationService.getMessage("cli.version.description"), null, false));
+    options.addOption(createOption(CLI_GUI_SHORT_OPTION, CLI_GUI_LONG_OPTION, false, internationalizationService.getMessage("cli.gui.description"), null, false));
+
+
 
     return options;
   }

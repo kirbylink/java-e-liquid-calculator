@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration;
+import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
 
 @ExtendWith(MockitoExtension.class)
 class CommandLineServiceTest {
@@ -29,6 +30,8 @@ class CommandLineServiceTest {
   private Options options;
   @Mock
   private CommandLine commandLine;
+  @Mock
+  private AboutInformation aboutInformation;
   @InjectMocks
   CommandLineService commandLineService;
 
@@ -102,6 +105,21 @@ class CommandLineServiceTest {
 
     // Then
     verify(commandLineConfiguration).printHelp(expectedOutput, options);
+  }
+
+  @Test
+  void testGetCommandLineFromArgumentsAndOptions_WhenArgumentIsOnlyVersion_ThenAboutInformationIsLogged() throws ParseException {
+
+    // Given
+
+    // When
+    var args = new String[]{"--version"};
+    var expectedCommandLine = commandLineService.getCommandLineFromArgumentsAndOptions(args, options);
+
+    // Then
+    assertThat(expectedCommandLine).isNull();
+    verify(aboutInformation).getApplicationVersion();
+    verify(aboutInformation).getJavaInformation();
   }
 
   private static class ExceptionWithLocalizedMessage extends IllegalArgumentException {

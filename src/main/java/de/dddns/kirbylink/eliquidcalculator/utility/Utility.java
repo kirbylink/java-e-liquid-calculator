@@ -20,6 +20,6 @@ public class Utility {
   }
 
   public static boolean hasArgument(String[] args, String shortOption, String longOption) {
-    return args.length != 0 && Arrays.stream(args).anyMatch(argument -> argument.contains(shortOption) || argument.contains(longOption));
+    return args != null && args.length != 0 && Arrays.stream(args).anyMatch(argument -> argument.contains(shortOption) || argument.contains(longOption));
   }
 }
