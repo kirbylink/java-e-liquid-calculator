@@ -27,4 +27,4 @@ To report a security vulnerability, please use GitHub's private vulnerability re
 
 For more information on using GitHub's security features, visit the [GitHub documentation on Security Advisories](https://docs.github.com/en/code-security/security-advisories).
 
-Thank you for helping to keep the Java Keep-A-Changelog Updater safe for everyone.
+Thank you for helping to keep the E-Liquid Calculator safe for everyone.
