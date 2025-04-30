@@ -6,7 +6,7 @@
 	<artifactId>e-liquid-calculator</artifactId>
 	<name>Java E-Liquid Calculator</name>
 	<description>An application to calculate the amount of raw materials for preparing e-liquid</description>
-	<version>1.1.5</version>
+	<version>1.1.6</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -16,8 +16,8 @@
 		<gitflow.productionBranch>main</gitflow.productionBranch>
 		<gitflow.developmentBranch>develop</gitflow.developmentBranch>
 		<gitflow.versionTagPrefix>v</gitflow.versionTagPrefix>
-		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-		<spring.version>6.2.5</spring.version>
+		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+		<spring.version>6.2.6</spring.version>
 		<commons-cli.version>1.9.0</commons-cli.version>
 		<lombok.version>1.18.38</lombok.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
@@ -27,8 +27,8 @@
 		<expressly.version>5.0.0</expressly.version>
 		<slf4j-api.version>2.0.17</slf4j-api.version>
 		<logback-classic.version>1.5.18</logback-classic.version>
-		<mockito.version>5.16.1</mockito.version>
-		<junit-jupiter.version>5.12.1</junit-jupiter.version>
+		<mockito.version>5.17.0</mockito.version>
+		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 		<assertj-core.version>3.27.3</assertj-core.version>
 		<assertj-swing.version>3.17.1</assertj-swing.version>
 		<maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
