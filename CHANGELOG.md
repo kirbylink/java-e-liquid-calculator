@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.8] - 2025-07-01
+### Changed
+- Update Maven dependencies
+
 ## [v1.1.7] - 2025-06-01
 ### Changed
 - Update Maven dependencies
@@ -66,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed help output for command-line parameters.
 
 [unreleased]: https://github.com/kirbylink/java-e-liquid-calculator/compare/main...HEAD
+[v1.1.8]: https://github.com/kirbylink/java-e-liquid-calculator/compare/v1.1.7...v1.1.8
 [v1.1.7]: https://github.com/kirbylink/java-e-liquid-calculator/compare/v1.1.6...v1.1.7
 [v1.1.6]: https://github.com/kirbylink/java-e-liquid-calculator/compare/v1.1.5...v1.1.6
 [v1.1.5]: https://github.com/kirbylink/java-e-liquid-calculator/compare/v1.1.4...v1.1.5
