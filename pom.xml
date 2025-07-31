@@ -17,7 +17,7 @@
 		<gitflow.developmentBranch>develop</gitflow.developmentBranch>
 		<gitflow.versionTagPrefix>v</gitflow.versionTagPrefix>
 		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-		<spring.version>6.2.8</spring.version>
+		<spring.version>6.2.9</spring.version>
 		<commons-cli.version>1.9.0</commons-cli.version>
 		<lombok.version>1.18.38</lombok.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
@@ -28,7 +28,7 @@
 		<slf4j-api.version>2.0.17</slf4j-api.version>
 		<logback-classic.version>1.5.18</logback-classic.version>
 		<mockito.version>5.18.0</mockito.version>
-		<junit-jupiter.version>5.13.2</junit-jupiter.version>
+		<junit-jupiter.version>5.13.4</junit-jupiter.version>
 		<assertj-core.version>3.27.3</assertj-core.version>
 		<assertj-swing.version>3.17.1</assertj-swing.version>
 		<maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
