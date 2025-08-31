@@ -17,19 +17,19 @@
 		<gitflow.developmentBranch>develop</gitflow.developmentBranch>
 		<gitflow.versionTagPrefix>v</gitflow.versionTagPrefix>
 		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-		<spring.version>6.2.9</spring.version>
-		<commons-cli.version>1.9.0</commons-cli.version>
+		<spring.version>6.2.10</spring.version>
+		<commons-cli.version>1.10.0</commons-cli.version>
 		<lombok.version>1.18.38</lombok.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok-mapsturct-binding.version>0.2.0</lombok-mapsturct-binding.version>
 		<jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
-		<hibernate-validator.version>9.0.1.Final</hibernate-validator.version>
+		<hibernate-validator.version>9.1.0.Alpha1</hibernate-validator.version>
 		<expressly.version>6.0.0</expressly.version>
 		<slf4j-api.version>2.0.17</slf4j-api.version>
 		<logback-classic.version>1.5.18</logback-classic.version>
-		<mockito.version>5.18.0</mockito.version>
+		<mockito.version>5.19.0</mockito.version>
 		<junit-jupiter.version>5.13.4</junit-jupiter.version>
-		<assertj-core.version>3.27.3</assertj-core.version>
+		<assertj-core.version>3.27.4</assertj-core.version>
 		<assertj-swing.version>3.17.1</assertj-swing.version>
 		<maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
