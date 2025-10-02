@@ -9,6 +9,7 @@ import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfigurati
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_PG_SHORT_OPTION;
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_VG_SHORT_OPTION;
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_WATER_SHORT_OPTION;
+import java.io.IOException;
 import java.util.Optional;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
@@ -34,7 +35,7 @@ public class ConsoleService {
   private final Calculator calculator;
   private final ResultVolumeWeightPercentageMapper resultVolumeWeightPercentageMapper;
 
-  public void printVolumeWeightAndPercentageOfRequiredQuantity(String[] args) throws ParseException {
+  public void printVolumeWeightAndPercentageOfRequiredQuantity(String[] args) throws ParseException, IOException {
 
     var options = commandLineConfiguration.getConsoleOptions();
 
