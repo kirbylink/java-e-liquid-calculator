@@ -1,11 +1,12 @@
 package de.dddns.kirbylink.eliquidcalculator.config;
 
+import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.help.HelpFormatter;
 import org.springframework.context.annotation.Configuration;
 import de.dddns.kirbylink.eliquidcalculator.service.InternationalizationService;
 import lombok.RequiredArgsConstructor;
@@ -84,8 +85,9 @@ public class CommandLineConfiguration {
     return new DefaultParser().parse(options, args);
   }
 
-  public void printHelp(String cmdLineSyntax, Options options) {
-    new HelpFormatter().printHelp(cmdLineSyntax, options);
+  public void printHelp(String cmdLineSyntax, Options options) throws IOException {
+    var helpFormatter = HelpFormatter.builder().setShowSince(false).get();
+    helpFormatter.printHelp(cmdLineSyntax, null, options, null, true);
   }
 
   private Option createOption(String shortOption, String longOption, boolean hasArg, String description, Class<?> type, boolean required) {
@@ -95,6 +97,6 @@ public class CommandLineConfiguration {
     .desc(description)
     .type(type)
     .required(required)
-    .build();
+    .get();
   }
 }
