@@ -313,6 +313,9 @@
                 <ignoredDependency>org.hibernate.validator:hibernate-validator</ignoredDependency>
                 <ignoredDependency>org.glassfish.expressly:expressly</ignoredDependency>
               </ignoredDependencies>
+              <ignoredUnusedDeclaredDependencies>
+                <ignoredUnusedDeclaredDependency>org.junit.platform:junit-platform-launcher</ignoredUnusedDeclaredDependency>
+              </ignoredUnusedDeclaredDependencies>
             </configuration>
           </execution>
         </executions>
