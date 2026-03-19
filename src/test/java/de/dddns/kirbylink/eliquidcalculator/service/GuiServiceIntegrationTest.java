@@ -321,19 +321,19 @@ class GuiServiceIntegrationTest {
     verify(guiServiceSpy).saveValues();
     verify(guiServiceSpy).openDialog(anyString(), eq(title));
   }
-  
+
   @Test
   void testMain_WhenGuiStartedAndMenuBarAndMenuViewAndCheckBoxMenuItemDarkModeIsClicked_ThenDarkModeIsToggled() throws Exception {
-    
+
     // Given
     internationalizationConfiguration.setLocale(Locale.GERMAN);
     when(persistentService.loadValues()).thenReturn(PersistentValues.builder().build());
-    
+
     // When
     guiServiceSpy.openWindow(new String[0]);
     var isDarkMode = guiServiceSpy.isDarkMode();
     window.menuItem("checkBoxMenuItemDarkMode").click();
-    
+
     // Then
     verify(guiServiceSpy).toggleDarkMode(any());
     assertThat(isDarkMode).isNotEqualTo(guiServiceSpy.isDarkMode());

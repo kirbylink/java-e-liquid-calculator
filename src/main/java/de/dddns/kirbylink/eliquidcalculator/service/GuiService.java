@@ -156,7 +156,7 @@ public class GuiService {
   private JLabel labelRequiredQuantityWaterVolumeResult;
   private JLabel labelRequiredQuantityWaterWeightResult;
   private JLabel labelRequiredQuantityWaterPercentResult;
-  
+
   @Getter
   private boolean darkMode;
 
@@ -197,11 +197,11 @@ public class GuiService {
     keyAdapter = guiConfiguration.keyAdapter(this::calculateRequiredQuantity);
 
     var values = getValuesFromArgumentsOrProperty(args, commandLine);
-    
+
     darkMode = Boolean.parseBoolean(values.getDarkMode());
     themeManager.applyTheme(darkMode);
     SwingUtilities.updateComponentTreeUI(jFrameEliquidCalculator);
-    
+
     buildMenuBarOfJFrame();
 
     buildHeaderPartOfJFrame();
@@ -211,9 +211,9 @@ public class GuiService {
     buildCalculatePartOfJFrame();
 
     buildResultPartOfJFrame();
-    
+
     jFrameEliquidCalculator.setVisible(true);
-    
+
     textBasicMaterialsBaseLiquidNicotine.requestFocus();
 
     log.debug("Gui successfully started.");
@@ -223,12 +223,12 @@ public class GuiService {
     var menuBar = new JMenuBar();
     menuBar.setName("menuBar");
     jFrameEliquidCalculator.setJMenuBar(menuBar);
-    
+
     menuView = new JMenu(internationalizationService.getMessage(GUI_MENUBAR_VIEW));
     menuView.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     menuView.setName("menuView");
     menuBar.add(menuView);
-    
+
     checkBoxMenuItemDarkMode = new JCheckBoxMenuItem(internationalizationService.getMessage(GUI_MENUBAR_VIEW_MENU_ITEM_DARK_MODE));
     checkBoxMenuItemDarkMode.setName("checkBoxMenuItemDarkMode");
     checkBoxMenuItemDarkMode.addActionListener(this::toggleDarkMode);
@@ -240,7 +240,7 @@ public class GuiService {
 
     menuItemHelpAbout = new JMenuItem(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
     menuItemHelpAbout.setName("menuItemHelpAbout");
-    menuItemHelpAbout.addActionListener(e -> 
+    menuItemHelpAbout.addActionListener(e ->
       openAboutDialog("Version: " + aboutInformation.getApplicationVersion() + System.lineSeparator() +
           System.lineSeparator() +
           aboutInformation.getJavaInformation(), internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT))
@@ -1027,7 +1027,7 @@ public class GuiService {
     gridBagConstraintsLabelRequiredQuantityWaterPercentageUnit.gridy = 19;
     jFrameEliquidCalculator.getContentPane().add(labelRequiredQuantityWaterPercentageUnit, gridBagConstraintsLabelRequiredQuantityWaterPercentageUnit);
   }
-  
+
   private PersistentValues getValuesFromArgumentsOrProperty(String[] args, CommandLine commandLine) {
     if(args.length != 0) {
       return PersistentValues.builder()
