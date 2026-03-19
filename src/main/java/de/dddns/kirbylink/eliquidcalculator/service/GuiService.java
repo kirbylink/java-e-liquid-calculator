@@ -60,6 +60,7 @@ import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.Persistent
 import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
 import de.dddns.kirbylink.eliquidcalculator.utility.ThemeManager;
 import jakarta.validation.ConstraintViolationException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -156,7 +157,8 @@ public class GuiService {
   private JLabel labelRequiredQuantityWaterWeightResult;
   private JLabel labelRequiredQuantityWaterPercentResult;
   
-  private boolean isDarkMode;
+  @Getter
+  private boolean darkMode;
 
   /**
    * @throws IOException
@@ -196,8 +198,8 @@ public class GuiService {
 
     var values = getValuesFromArgumentsOrProperty(args, commandLine);
     
-    isDarkMode = Boolean.parseBoolean(values.getDarkMode());
-    themeManager.applyTheme(isDarkMode);
+    darkMode = Boolean.parseBoolean(values.getDarkMode());
+    themeManager.applyTheme(darkMode);
     SwingUtilities.updateComponentTreeUI(jFrameEliquidCalculator);
     
     buildMenuBarOfJFrame();
@@ -230,7 +232,7 @@ public class GuiService {
     checkBoxMenuItemDarkMode = new JCheckBoxMenuItem(internationalizationService.getMessage(GUI_MENUBAR_VIEW_MENU_ITEM_DARK_MODE));
     checkBoxMenuItemDarkMode.setName("checkBoxMenuItemDarkMode");
     checkBoxMenuItemDarkMode.addActionListener(this::toggleDarkMode);
-    checkBoxMenuItemDarkMode.setSelected(isDarkMode);
+    checkBoxMenuItemDarkMode.setSelected(darkMode);
     menuView.add(checkBoxMenuItemDarkMode);
 
     menuHelp = new JMenu(internationalizationService.getMessage(GUI_MENUBAR_HELP));
@@ -1182,10 +1184,10 @@ public class GuiService {
   }
 
   protected void toggleDarkMode(ActionEvent event) {
-    var isDarkModeSelected = ((JCheckBoxMenuItem) event.getSource()).isSelected();
-    themeManager.applyTheme(isDarkModeSelected);
+    darkMode = ((JCheckBoxMenuItem) event.getSource()).isSelected();
+    themeManager.applyTheme(darkMode);
     SwingUtilities.updateComponentTreeUI(jFrameEliquidCalculator);
-    log.debug("Dark mode {} - component tree updated", isDarkModeSelected ? "enabled" : "disabled");
+    log.debug("Dark mode {} - component tree updated", darkMode ? "enabled" : "disabled");
   }
 
   protected void openDialog(String message, String title) {

@@ -331,10 +331,12 @@ class GuiServiceIntegrationTest {
     
     // When
     guiServiceSpy.openWindow(new String[0]);
+    var isDarkMode = guiServiceSpy.isDarkMode();
     window.menuItem("checkBoxMenuItemDarkMode").click();
     
     // Then
     verify(guiServiceSpy).toggleDarkMode(any());
+    assertThat(isDarkMode).isNotEqualTo(guiServiceSpy.isDarkMode());
   }
 
   @Test
