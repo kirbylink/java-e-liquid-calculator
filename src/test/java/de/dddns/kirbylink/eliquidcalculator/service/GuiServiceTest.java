@@ -20,6 +20,7 @@ import de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration;
 import de.dddns.kirbylink.eliquidcalculator.config.GuiConfiguration;
 import de.dddns.kirbylink.eliquidcalculator.config.InternationalizationConfiguration;
 import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.PersistentValues;
+import de.dddns.kirbylink.eliquidcalculator.utility.ThemeManager;
 
 @ExtendWith(MockitoExtension.class)
 class GuiServiceTest {
@@ -28,6 +29,8 @@ class GuiServiceTest {
   Container container;
   @Mock
   private JFrame jFrame;
+  @Mock
+  ThemeManager themeManager;
   @Mock
   private InternationalizationService internationalizationService;
   @Mock
