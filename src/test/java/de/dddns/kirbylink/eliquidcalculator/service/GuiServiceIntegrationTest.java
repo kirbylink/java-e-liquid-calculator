@@ -46,6 +46,7 @@ import de.dddns.kirbylink.eliquidcalculator.config.InternationalizationConfigura
 import de.dddns.kirbylink.eliquidcalculator.converter.ResultVolumeWeightPercentageMapper;
 import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.PersistentValues;
 import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
+import de.dddns.kirbylink.eliquidcalculator.utility.ThemeManager;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
@@ -59,6 +60,8 @@ class GuiServiceIntegrationTest {
   JFrame jFrame;
   @Autowired
   GuiConfiguration guiConfiguration;
+  @Autowired
+  ThemeManager themeManager;
   @Autowired
   InternationalizationConfiguration internationalizationConfiguration;
   @Autowired
@@ -85,7 +88,7 @@ class GuiServiceIntegrationTest {
 
   @BeforeEach
   void setUp() {
-    guiService = new GuiService(jFrame, guiConfiguration, internationalizationConfiguration, internationalizationService,
+    guiService = new GuiService(jFrame, guiConfiguration, themeManager, internationalizationConfiguration, internationalizationService,
         calculator, resultVolumeWeightPercentageMapper, commandLineService,
         commandLineConfiguration, focusListener, persistentService, aboutInformation);
     guiServiceSpy = spy(guiService);
@@ -317,6 +320,21 @@ class GuiServiceIntegrationTest {
     var title = "Speichern der Werte fehlgeschlagen";
     verify(guiServiceSpy).saveValues();
     verify(guiServiceSpy).openDialog(anyString(), eq(title));
+  }
+  
+  @Test
+  void testMain_WhenGuiStartedAndMenuBarAndMenuViewAndCheckBoxMenuItemDarkModeIsClicked_ThenDarkModeIsToggled() throws Exception {
+    
+    // Given
+    internationalizationConfiguration.setLocale(Locale.GERMAN);
+    when(persistentService.loadValues()).thenReturn(PersistentValues.builder().build());
+    
+    // When
+    guiServiceSpy.openWindow(new String[0]);
+    window.menuItem("checkBoxMenuItemDarkMode").click();
+    
+    // Then
+    verify(guiServiceSpy).toggleDarkMode(any());
   }
 
   @Test
