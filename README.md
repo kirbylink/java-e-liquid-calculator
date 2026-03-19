@@ -13,6 +13,11 @@
 [![Abdeckung](https://sonarqube.phoenix.ipv64.de/api/project_badges/measure?project=de.dddns.kirbylink%3Ae-liquid-calculator&metric=coverage&token=sqb_0821339dda892b80ccfbd777867d75a12dc8fc77)](https://sonarqube.phoenix.ipv64.de/dashboard?id=de.dddns.kirbylink%3Ae-liquid-calculator) for `main`<br /> 
 [![Abdeckung](https://sonarqube.phoenix.ipv64.de/api/project_badges/measure?branch=develop&project=de.dddns.kirbylink%3Ae-liquid-calculator&metric=coverage&token=sqb_0821339dda892b80ccfbd777867d75a12dc8fc77)](https://sonarqube.phoenix.ipv64.de/dashboard?id=de.dddns.kirbylink%3Ae-liquid-calculator&branch=develop) for `develop`<br /> 
 
+![GitHub Release](https://img.shields.io/github/v/release/kirbylink/java-e-liquid-calculator)
+![GitHub Downloads](https://img.shields.io/github/downloads/kirbylink/java-e-liquid-calculator/latest)
+![GitHub Downloads](https://img.shields.io/github/downloads/kirbylink/java-e-liquid-calculator/total)
+![License](https://img.shields.io/github/license/kirbylink/java-e-liquid-calculator)
+
 # Java E-Liquid Calculator
 
 ## Table of Contents / Inhaltsverzeichnis
