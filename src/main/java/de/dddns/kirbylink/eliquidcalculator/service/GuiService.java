@@ -142,6 +142,7 @@ public class GuiService {
   private JLabel labelRequiredQuantityVgVolumeResult;
   private JLabel labelRequiredQuantityVgWeightResult;
   private JLabel labelRequiredQuantityVgPercentResult;
+  private JLabel labelRequiredQuantityWater;
   private JLabel labelRequiredQuantityWaterVolumeResult;
   private JLabel labelRequiredQuantityWaterWeightResult;
   private JLabel labelRequiredQuantityWaterPercentResult;
@@ -936,7 +937,7 @@ public class GuiService {
     gridBagConstraintsLabelRequiredQuantityVgPercentageUnit.gridy = 18;
     jFrameEliquidCalculator.getContentPane().add(labelRequiredQuantityVgPercentageUnit, gridBagConstraintsLabelRequiredQuantityVgPercentageUnit);
 
-    var labelRequiredQuantityWater = new JLabel(internationalizationService.getMessage(GUI_LABEL_WATER));
+    labelRequiredQuantityWater = new JLabel(internationalizationService.getMessage(GUI_LABEL_WATER));
     labelRequiredQuantityWater.setName("labelRequiredQuantityWater");
     var gridBagConstraintsLabelRequiredQuantityWater = new GridBagConstraints();
     gridBagConstraintsLabelRequiredQuantityWater.anchor = GridBagConstraints.WEST;
@@ -1044,6 +1045,8 @@ public class GuiService {
     labelRequiredQuantityWeight.setText(internationalizationService.getMessage(GUI_LABEL_WEIGHT));
     labelRequiredQuantityPercent.setText(internationalizationService.getMessage(GUI_LABEL_PERCENT));
     labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
+    labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
+    labelRequiredQuantityWater.setText(internationalizationService.getMessage(GUI_LABEL_WATER));
 
     menuHelp.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP));
     menuItemHelpAbout.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
