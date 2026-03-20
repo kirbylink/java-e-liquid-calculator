@@ -10,16 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ThemeManager {
 
   public void applyTheme(boolean isDarkMode) {
-    try {
-      if (isDarkMode) {
-        FlatDarkLaf.setup();
-        log.debug("Dark mode applied");
-      } else {
-        FlatLightLaf.setup();
-        log.debug("Light mode applied");
-      }
-    } catch (Exception e) {
-      log.error("Failed to apply theme", e);
+    if (isDarkMode) {
+      FlatDarkLaf.setup();
+      log.debug("Dark mode applied");
+    } else {
+      FlatLightLaf.setup();
+      log.debug("Light mode applied");
     }
   }
 }
