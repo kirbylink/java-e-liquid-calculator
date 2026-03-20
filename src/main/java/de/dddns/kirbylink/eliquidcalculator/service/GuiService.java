@@ -187,15 +187,11 @@ public class GuiService {
     jFrameEliquidCalculator.setResizable(false);
     jFrameEliquidCalculator.getContentPane().setMinimumSize(new Dimension(2000, 0));
     jFrameEliquidCalculator.setTitle("E-Liquid-Calculator");
-    
-    try {
-      var originalIcon = new ImageIcon(getClass().getResource("/images/logo.png"));
-      var scaledImage = originalIcon.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);
-      jFrameEliquidCalculator.setIconImage(scaledImage);
-    } catch (Exception e) {
-      log.warn("Could not load or scale application icon: {}", e.getMessage());
-    }
-    
+
+    var originalIcon = new ImageIcon(getClass().getResource("/images/logo.png"));
+    var scaledImage = originalIcon.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);
+    jFrameEliquidCalculator.setIconImage(scaledImage);
+
     var gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[]{10, 150, 0, 50, 50, 20, 0, 50, 20, 0, 50, 20, 0, 50, 20, 0, 50, 20, 150, 10, 0};
     gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0};
