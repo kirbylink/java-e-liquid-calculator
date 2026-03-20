@@ -1045,7 +1045,6 @@ public class GuiService {
     labelRequiredQuantityWeight.setText(internationalizationService.getMessage(GUI_LABEL_WEIGHT));
     labelRequiredQuantityPercent.setText(internationalizationService.getMessage(GUI_LABEL_PERCENT));
     labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
-    labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
     labelRequiredQuantityWater.setText(internationalizationService.getMessage(GUI_LABEL_WATER));
 
     menuHelp.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP));
