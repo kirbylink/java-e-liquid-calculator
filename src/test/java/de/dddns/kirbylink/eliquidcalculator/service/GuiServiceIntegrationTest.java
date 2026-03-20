@@ -339,9 +339,9 @@ class GuiServiceIntegrationTest {
     var isDarkModeInitialAgain = guiServiceSpy.isDarkMode();
 
     // Then
-    verify(guiServiceSpy).toggleDarkMode(any());
+    verify(guiServiceSpy, times(2)).toggleDarkMode(any());
     assertThat(isDarkModeInitial).isNotEqualTo(isDarkModeToggled);
-    assertThat(isDarkModeInitial).isNotEqualTo(isDarkModeInitialAgain);
+    assertThat(isDarkModeInitial).isEqualTo(isDarkModeInitialAgain);
   }
 
   @Test
