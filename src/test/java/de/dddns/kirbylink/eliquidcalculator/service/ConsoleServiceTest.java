@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.cli.CommandLine;
@@ -55,7 +56,7 @@ class ConsoleServiceTest {
   }
 
   @Test
-  void testPrintCalculateLiquid_WhenWithFiftyFiftyMix_ThenResultIsPrinted() throws ParseException {
+  void testPrintCalculateLiquid_WhenWithFiftyFiftyMix_ThenResultIsPrinted() throws ParseException, IOException {
 
     // Given
     var eliquidBase = ELiquidBase.builder()
@@ -125,7 +126,7 @@ class ConsoleServiceTest {
   }
 
   @Test
-  void testPrintCalculateLiquid_WhenWithPgAndWaterMixAndNoNicotineWithPgBase_ThenResultIsPrinted() throws ParseException {
+  void testPrintCalculateLiquid_WhenWithPgAndWaterMixAndNoNicotineWithPgBase_ThenResultIsPrinted() throws ParseException, IOException {
 
     // Given
     var eliquidBase = ELiquidBase.builder()
@@ -195,7 +196,7 @@ class ConsoleServiceTest {
   }
 
   @Test
-  void testPrintCalculateLiquid_WhenWithFiftyFiftyMixWithZeroBaseNicotineButWithTargetNicotine_ThenIllegalArgumentErrorMessageIsPrinted() throws ParseException {
+  void testPrintCalculateLiquid_WhenWithFiftyFiftyMixWithZeroBaseNicotineButWithTargetNicotine_ThenIllegalArgumentErrorMessageIsPrinted() throws ParseException, IOException {
 
     // Given
     when(commandLineService.getCommandLineFromArgumentsAndOptions(any(String[].class), eq(options))).thenReturn(commandLine);
@@ -235,7 +236,7 @@ class ConsoleServiceTest {
   }
 
   @Test
-  void testPrintCalculateLiquid_WhenWithFiftyFiftyMixWithZeroBasePercentageButWithBaseNicotine_ThenValidationErrorMessageIsPrinted() throws ParseException {
+  void testPrintCalculateLiquid_WhenWithFiftyFiftyMixWithZeroBasePercentageButWithBaseNicotine_ThenValidationErrorMessageIsPrinted() throws ParseException, IOException {
 
     // Given
     when(commandLineService.getCommandLineFromArgumentsAndOptions(any(String[].class), eq(options))).thenReturn(commandLine);
@@ -275,7 +276,7 @@ class ConsoleServiceTest {
   }
 
   @Test
-  void testPrintCalculateLiquid_WhenWithNonNumericValueAsAmaountIsSet_ThenValidationErrorMessageIsPrinted() throws ParseException {
+  void testPrintCalculateLiquid_WhenWithNonNumericValueAsAmaountIsSet_ThenValidationErrorMessageIsPrinted() throws ParseException, IOException {
 
     // Given
     when(commandLineService.getCommandLineFromArgumentsAndOptions(any(String[].class), eq(options))).thenReturn(commandLine);

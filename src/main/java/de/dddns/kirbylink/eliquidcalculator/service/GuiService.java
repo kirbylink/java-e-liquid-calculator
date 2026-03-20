@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
@@ -28,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -41,6 +43,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import org.apache.commons.cli.CommandLine;
@@ -55,7 +58,9 @@ import de.dddns.kirbylink.eliquidcalculator.model.ELiquidBase;
 import de.dddns.kirbylink.eliquidcalculator.model.ResultVolumeWeightPercentage;
 import de.dddns.kirbylink.eliquidcalculator.service.PersistentService.PersistentValues;
 import de.dddns.kirbylink.eliquidcalculator.utility.AboutInformation;
+import de.dddns.kirbylink.eliquidcalculator.utility.ThemeManager;
 import jakarta.validation.ConstraintViolationException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,6 +88,8 @@ public class GuiService {
   private static final String GUI_LABEL_WATER = "gui.label.water";
   private static final String GUI_LABEL_NICOTINE = "gui.label.nicotine";
   private static final String GUI_LABEL_BASIC_SUBSTANCES = "gui.label.basic.substances";
+  private static final String GUI_MENUBAR_VIEW = "gui.menubar.view";
+  private static final String GUI_MENUBAR_VIEW_MENU_ITEM_DARK_MODE = "gui.menubar.view.menuitem.darkmode";
   private static final String GUI_MENUBAR_HELP = "gui.menubar.help";
   private static final String GUI_MENUBAR_HELP_MENU_ITEM_ABOUT = "gui.menubar.help.menuitem.about";
   private static final String DEJA_VU_SANS = "DejaVu Sans";
@@ -95,6 +102,7 @@ public class GuiService {
 
   private final JFrame jFrameEliquidCalculator;
   private final GuiConfiguration guiConfiguration;
+  private final ThemeManager themeManager;
   private final InternationalizationConfiguration internationalizationConfiguration;
   private final InternationalizationService internationalizationService;
   private final Calculator calculator;
@@ -106,6 +114,8 @@ public class GuiService {
   private final AboutInformation aboutInformation;
 
   private KeyAdapter keyAdapter;
+  private JMenu menuView;
+  private JCheckBoxMenuItem checkBoxMenuItemDarkMode;
   private JMenu menuHelp;
   private JMenuItem menuItemHelpAbout;
   private JLabel labelBasicMaterials;
@@ -142,9 +152,13 @@ public class GuiService {
   private JLabel labelRequiredQuantityVgVolumeResult;
   private JLabel labelRequiredQuantityVgWeightResult;
   private JLabel labelRequiredQuantityVgPercentResult;
+  private JLabel labelRequiredQuantityWater;
   private JLabel labelRequiredQuantityWaterVolumeResult;
   private JLabel labelRequiredQuantityWaterWeightResult;
   private JLabel labelRequiredQuantityWaterPercentResult;
+
+  @Getter
+  private boolean darkMode;
 
   /**
    * @throws IOException
@@ -173,6 +187,11 @@ public class GuiService {
     jFrameEliquidCalculator.setResizable(false);
     jFrameEliquidCalculator.getContentPane().setMinimumSize(new Dimension(2000, 0));
     jFrameEliquidCalculator.setTitle("E-Liquid-Calculator");
+
+    var originalIcon = new ImageIcon(getClass().getResource("/images/logo.png"));
+    var scaledImage = originalIcon.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);
+    jFrameEliquidCalculator.setIconImage(scaledImage);
+
     var gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[]{10, 150, 0, 50, 50, 20, 0, 50, 20, 0, 50, 20, 0, 50, 20, 0, 50, 20, 150, 10, 0};
     gridBagLayout.rowHeights = new int[]{60, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0};
@@ -183,6 +202,10 @@ public class GuiService {
     keyAdapter = guiConfiguration.keyAdapter(this::calculateRequiredQuantity);
 
     var values = getValuesFromArgumentsOrProperty(args, commandLine);
+
+    darkMode = Boolean.parseBoolean(values.getDarkMode());
+    themeManager.applyTheme(darkMode);
+    SwingUtilities.updateComponentTreeUI(jFrameEliquidCalculator);
 
     buildMenuBarOfJFrame();
 
@@ -195,6 +218,7 @@ public class GuiService {
     buildResultPartOfJFrame();
 
     jFrameEliquidCalculator.setVisible(true);
+
     textBasicMaterialsBaseLiquidNicotine.requestFocus();
 
     log.debug("Gui successfully started.");
@@ -205,14 +229,23 @@ public class GuiService {
     menuBar.setName("menuBar");
     jFrameEliquidCalculator.setJMenuBar(menuBar);
 
+    menuView = new JMenu(internationalizationService.getMessage(GUI_MENUBAR_VIEW));
+    menuView.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+    menuView.setName("menuView");
+    menuBar.add(menuView);
+
+    checkBoxMenuItemDarkMode = new JCheckBoxMenuItem(internationalizationService.getMessage(GUI_MENUBAR_VIEW_MENU_ITEM_DARK_MODE));
+    checkBoxMenuItemDarkMode.setName("checkBoxMenuItemDarkMode");
+    checkBoxMenuItemDarkMode.addActionListener(this::toggleDarkMode);
+    checkBoxMenuItemDarkMode.setSelected(darkMode);
+    menuView.add(checkBoxMenuItemDarkMode);
+
     menuHelp = new JMenu(internationalizationService.getMessage(GUI_MENUBAR_HELP));
-    menuHelp.setName("menuHelp");
-    menuHelp.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
     menuBar.add(menuHelp);
 
     menuItemHelpAbout = new JMenuItem(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
     menuItemHelpAbout.setName("menuItemHelpAbout");
-    menuItemHelpAbout.addActionListener(e -> 
+    menuItemHelpAbout.addActionListener(e ->
       openAboutDialog("Version: " + aboutInformation.getApplicationVersion() + System.lineSeparator() +
           System.lineSeparator() +
           aboutInformation.getJavaInformation(), internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT))
@@ -936,7 +969,7 @@ public class GuiService {
     gridBagConstraintsLabelRequiredQuantityVgPercentageUnit.gridy = 18;
     jFrameEliquidCalculator.getContentPane().add(labelRequiredQuantityVgPercentageUnit, gridBagConstraintsLabelRequiredQuantityVgPercentageUnit);
 
-    var labelRequiredQuantityWater = new JLabel(internationalizationService.getMessage(GUI_LABEL_WATER));
+    labelRequiredQuantityWater = new JLabel(internationalizationService.getMessage(GUI_LABEL_WATER));
     labelRequiredQuantityWater.setName("labelRequiredQuantityWater");
     var gridBagConstraintsLabelRequiredQuantityWater = new GridBagConstraints();
     gridBagConstraintsLabelRequiredQuantityWater.anchor = GridBagConstraints.WEST;
@@ -1012,6 +1045,7 @@ public class GuiService {
           .withTargetPg(createIntegerStringFromDoubleString(commandLine, CLI_PG_SHORT_OPTION))
           .withTargetVg(createIntegerStringFromDoubleString(commandLine, CLI_VG_SHORT_OPTION))
           .withTargetWater(createIntegerStringFromDoubleString(commandLine, CLI_WATER_SHORT_OPTION))
+          .withDarkMode("false")
           .build();
     } else {
       return persistentService.loadValues();
@@ -1044,7 +1078,10 @@ public class GuiService {
     labelRequiredQuantityWeight.setText(internationalizationService.getMessage(GUI_LABEL_WEIGHT));
     labelRequiredQuantityPercent.setText(internationalizationService.getMessage(GUI_LABEL_PERCENT));
     labelRequiredQuantityBaseliquid.setText(internationalizationService.getMessage(GUI_LABEL_BASE_LIQUID));
+    labelRequiredQuantityWater.setText(internationalizationService.getMessage(GUI_LABEL_WATER));
 
+    menuView.setText(internationalizationService.getMessage(GUI_MENUBAR_VIEW));
+    checkBoxMenuItemDarkMode.setText(internationalizationService.getMessage(GUI_MENUBAR_VIEW_MENU_ITEM_DARK_MODE));
     menuHelp.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP));
     menuItemHelpAbout.setText(internationalizationService.getMessage(GUI_MENUBAR_HELP_MENU_ITEM_ABOUT));
 
@@ -1128,6 +1165,7 @@ public class GuiService {
         .withTargetVg(textFinishedLiquidVg.getText())
         .withTargetWater(textFinishedLiquidWater.getText())
         .withAmount(textFinishedLiquidAmount.getText())
+        .withDarkMode(checkBoxMenuItemDarkMode.isSelected() ? "true" : "false")
         .build();
     try {
       persistentService.saveValues(persistendValues);
@@ -1148,6 +1186,13 @@ public class GuiService {
 
   protected void deleteBorders(JLabel ...jLabels) {
     Arrays.stream(jLabels).forEach(jLabel -> jLabel.setBorder(null));
+  }
+
+  protected void toggleDarkMode(ActionEvent event) {
+    darkMode = ((JCheckBoxMenuItem) event.getSource()).isSelected();
+    themeManager.applyTheme(darkMode);
+    SwingUtilities.updateComponentTreeUI(jFrameEliquidCalculator);
+    log.debug("Dark mode {} - component tree updated", darkMode ? "enabled" : "disabled");
   }
 
   protected void openDialog(String message, String title) {

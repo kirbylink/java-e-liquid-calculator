@@ -63,21 +63,21 @@ class AboutInformationTest {
     // Then
     assertThat(actualVersion).isEqualTo(expectedVersion);
   }
-  
+
   @Test
   void testGetJavaInformation_WhenCalledTwice_ThenValueWillNotChange() {
-    
+
     // Given
     var value = System.getProperty("java.version");
-    
+
     // When
     aboutInformation.getJavaInformation();
     System.setProperty("java.version", "42");
     var actualJavaInformation = aboutInformation.getJavaInformation();
-    
+
     // Then
     assertThat(actualJavaInformation).doesNotContain("42");
-    
+
     System.setProperty("java.version", value);
   }
 }

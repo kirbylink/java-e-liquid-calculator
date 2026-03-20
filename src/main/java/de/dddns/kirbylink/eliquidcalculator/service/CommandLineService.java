@@ -4,6 +4,7 @@ import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfigurati
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_HELP_SHORT_OPTION;
 import static de.dddns.kirbylink.eliquidcalculator.config.CommandLineConfiguration.CLI_VERSION_LONG_OPTION;
 import static de.dddns.kirbylink.eliquidcalculator.utility.Utility.hasArgument;
+import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CommandLineService {
   private final InternationalizationService internationalizationService;
   private final AboutInformation aboutInformation;
 
-  public CommandLine getCommandLineFromArgumentsAndOptions(String[] args, Options options) {
+  public CommandLine getCommandLineFromArgumentsAndOptions(String[] args, Options options) throws IOException {
     var printHelp = hasArgument(args, CLI_HELP_SHORT_OPTION, CLI_HELP_LONG_OPTION);
     if (printHelp) {
       commandLineConfiguration.printHelp(internationalizationService.getMessage("cli.helper.usage.message"), options);

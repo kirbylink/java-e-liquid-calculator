@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -36,7 +37,7 @@ class CommandLineServiceTest {
   CommandLineService commandLineService;
 
   @Test
-  void testGetCommandLineFromArgumentsAndOptions() throws ParseException {
+  void testGetCommandLineFromArgumentsAndOptions() throws ParseException, IOException {
 
     // Given
     var args = new String[]{"-a", "800", "-p", "0.5", "-v", "0.5", "-n", "6", "-bn", "48", "-bp", "1"};
@@ -51,7 +52,7 @@ class CommandLineServiceTest {
 
   @ParameterizedTest
   @CsvSource(value = {"-h", "--help"})
-  void testGetCommandLineFromArgumentsAndOptions_WhenArgumentContainsHelpOption_ThenPrintHelpIsLogged(String argument) {
+  void testGetCommandLineFromArgumentsAndOptions_WhenArgumentContainsHelpOption_ThenPrintHelpIsLogged(String argument) throws IOException {
 
     // Given
     var cliHelperUsageMessage = """
@@ -78,7 +79,7 @@ class CommandLineServiceTest {
   }
 
   @Test
-  void testGetCommandLineFromArgumentsAndOptions_WhenExceptionOccursWhenGettingTheCommandLine_ThenPrintHelpIsLogged() throws ParseException {
+  void testGetCommandLineFromArgumentsAndOptions_WhenExceptionOccursWhenGettingTheCommandLine_ThenPrintHelpIsLogged() throws ParseException, IOException {
 
     // Given
     var exceptionWithLocalizedMessage = new ExceptionWithLocalizedMessage();
@@ -108,7 +109,7 @@ class CommandLineServiceTest {
   }
 
   @Test
-  void testGetCommandLineFromArgumentsAndOptions_WhenArgumentIsOnlyVersion_ThenAboutInformationIsLogged() throws ParseException {
+  void testGetCommandLineFromArgumentsAndOptions_WhenArgumentIsOnlyVersion_ThenAboutInformationIsLogged() throws IOException {
 
     // Given
 
