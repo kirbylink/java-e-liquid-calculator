@@ -32,6 +32,7 @@ public class PersistentService {
     properties.setProperty("target-vg", persistentValues.getTargetVg());
     properties.setProperty("target-water", persistentValues.getTargetWater());
     properties.setProperty("amount", persistentValues.getAmount());
+    properties.setProperty("dark-mode", persistentValues.getDarkMode());
 
     var directory = getApplicationDataDirectoryFile();
     if (!directory.exists()) {
@@ -68,6 +69,7 @@ public class PersistentService {
             .withTargetVg(properties.getProperty("target-vg", "0"))
             .withTargetWater(properties.getProperty("target-water", "0"))
             .withAmount(properties.getProperty("amount", "0"))
+            .withDarkMode(properties.getProperty("dark-mode", "false"))
             .build();
         log.debug("Settings loaded from {} with {}", file.getAbsolutePath(), persistendValues.toString());
         return persistendValues;
@@ -113,5 +115,7 @@ public class PersistentService {
     private final String targetWater = "0";
     @Default
     private final String amount = "0";
+    @Default
+    private final String darkMode = "false";
   }
 }

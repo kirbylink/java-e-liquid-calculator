@@ -25,6 +25,7 @@
     <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
     <hibernate-validator.version>9.1.0.Final</hibernate-validator.version>
     <expressly.version>6.0.0</expressly.version>
+    <flatlaf.version>3.7.1</flatlaf.version>
     <slf4j-api.version>2.0.17</slf4j-api.version>
     <logback-classic.version>1.5.32</logback-classic.version>
     <mockito.version>5.22.0</mockito.version>
@@ -85,6 +86,11 @@
       <groupId>org.glassfish.expressly</groupId>
       <artifactId>expressly</artifactId>
       <version>${expressly.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>${flatlaf.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

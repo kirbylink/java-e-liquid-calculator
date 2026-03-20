@@ -60,21 +60,21 @@ class ELiquidCalculatorApplicationIntegrationTest {
           usage:  java -jar e-liquid-calculator-<version>-jar-with-dependencies.jar
               -a <arg> [-bn <arg>] [-bp <arg>] [-bv <arg>] [-bw <arg>] [-g] [-h] [-n
               <arg>] -p <arg> [-v <arg>] [--version] [-w <arg>]
-          
-                    Options                               Description                
-           -n, --nicotine <arg>           Die Nikotinmenge im fertigen Liquid        
+
+                    Options                               Description
+           -n, --nicotine <arg>           Die Nikotinmenge im fertigen Liquid
            -v, --vg <arg>                 Prozentualer VG-Anteil im fertigen Liquid
-           -w, --water <arg>              Prozentualer Wasseranteil im fertigen      
-                                           Liquid                                    
-           -bn, --base-nicotine <arg>     Die Nikotinmenge in der Basis              
-           -bp, --base-pg <arg>           Prozentualer PG-Anteil in der Basis        
-           -bv, --base-vg <arg>           Prozentualer VG-Anteil in der Basis        
-           -bw, --base-water <arg>        Prozentualer Wasseranteil in der Basis     
-           -h, --help                     Zeigt diese Hilfe an                       
+           -w, --water <arg>              Prozentualer Wasseranteil im fertigen
+                                           Liquid
+           -bn, --base-nicotine <arg>     Die Nikotinmenge in der Basis
+           -bp, --base-pg <arg>           Prozentualer PG-Anteil in der Basis
+           -bv, --base-vg <arg>           Prozentualer VG-Anteil in der Basis
+           -bw, --base-water <arg>        Prozentualer Wasseranteil in der Basis
+           -h, --help                     Zeigt diese Hilfe an
            --version                      Zeigt die Version dieser Anwendung und die
-                                           Java VM Informationen an                  
-           -g, --gui                      Startet die grafische Oberfläche           
-           -a, --amount <arg>             Die Gesamtmenge des fertigen Liquids       
+                                           Java VM Informationen an
+           -g, --gui                      Startet die grafische Oberfläche
+           -a, --amount <arg>             Die Gesamtmenge des fertigen Liquids
            -p, --pg <arg>                 Prozentualer PG-Anteil im fertigen Liquid  """;
 
       try {
